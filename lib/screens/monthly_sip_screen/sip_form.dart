@@ -8,7 +8,7 @@ class SipForm extends StatefulWidget {
 }
 
 class _SipFormState extends State<SipForm> {
-  final bool isCalculated = false;
+  bool isCalculated = false;
   bool monthlyInvestmentError = false;
   bool expectedReturnsError = false;
   bool periodError = false;
@@ -26,6 +26,7 @@ class _SipFormState extends State<SipForm> {
       monthlyInvestmentError = false;
       expectedReturnsError = false;
       periodError = false;
+      isCalculated = false;
     });
   }
 
@@ -63,7 +64,11 @@ class _SipFormState extends State<SipForm> {
         periodError = false;
       });
     }
-
+    if (state) {
+      setState(() {
+        isCalculated = true;
+      });
+    }
     return state;
   }
 
@@ -227,13 +232,16 @@ class _SipFormState extends State<SipForm> {
                       ),
                     ),
                   ),
-                  const Expanded(
-                    flex: 1,
-                    child: Padding(
-                      padding: EdgeInsets.only(left: 4, right: 6, top: 8),
-                      child: ElevatedButton(
-                        onPressed: null,
-                        child: Text("Details"),
+                  Visibility(
+                    visible: isCalculated,
+                    child: const Expanded(
+                      flex: 1,
+                      child: Padding(
+                        padding: EdgeInsets.only(left: 4, right: 6, top: 8),
+                        child: ElevatedButton(
+                          onPressed: null,
+                          child: Text("Details"),
+                        ),
                       ),
                     ),
                   ),
