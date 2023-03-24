@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class SipForm extends StatefulWidget {
-  const SipForm({super.key});
+  final Function calculateSIPWith;
+  const SipForm({required this.calculateSIPWith, super.key});
 
   @override
   State<SipForm> createState() => _SipFormState();
@@ -30,7 +31,15 @@ class _SipFormState extends State<SipForm> {
     });
   }
 
-  bool validateSipForm() {
+  void convertValuesAndCalculateSIP() {
+    final monthlyInvestment = double.parse(monthlyInvestmentController.text);
+    final expectedReturns = double.parse(expectedReturnController.text);
+    final period = double.parse(periodController.text) * 12;
+
+    widget.calculateSIPWith(monthlyInvestment, period, expectedReturns);
+  }
+
+  void validateSipForm() {
     bool state = true;
 
     if (monthlyInvestmentController.text == "") {
@@ -69,7 +78,9 @@ class _SipFormState extends State<SipForm> {
         isCalculated = true;
       });
     }
-    return state;
+    if (state) {
+      convertValuesAndCalculateSIP();
+    }
   }
 
   @override
