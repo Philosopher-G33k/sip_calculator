@@ -47,7 +47,6 @@ class _SipFormState extends State<SipForm> {
     bool state = true;
 
     if (monthlyInvestmentController.text == "") {
-      print("Monthly investment empty");
       setState(() {
         monthlyInvestmentError = true;
         expectedReturnsError = false;
@@ -55,7 +54,6 @@ class _SipFormState extends State<SipForm> {
       });
       state = false;
     } else if (expectedReturnController.text == "") {
-      print("Expected return empty");
       setState(() {
         monthlyInvestmentError = false;
         expectedReturnsError = true;
@@ -63,7 +61,6 @@ class _SipFormState extends State<SipForm> {
       });
       state = false;
     } else if (periodController.text == "") {
-      print("Period empty");
       setState(() {
         monthlyInvestmentError = false;
         expectedReturnsError = false;

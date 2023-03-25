@@ -32,9 +32,6 @@ class _MonthlySipScreenState extends State<MonthlySipScreen> {
         (pow(1 + convertedPercentage, convertedDuration) - 1) *
         ((1 + convertedPercentage) / (convertedPercentage)));
 
-    print("sipMaturityValue");
-    print(sipMaturityValue);
-
     setState(() {
       this.sipMaturityValue = sipMaturityValue.toInt();
       initialInvestmentAmount = (monthlyInvestment * duration).toInt();
