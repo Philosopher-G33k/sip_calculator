@@ -1,8 +1,8 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import '../history_screen/history_screen.dart';
 import './sip_form.dart';
+import '../reusable /sip_maturity.dart';
 
 class MonthlySipScreen extends StatefulWidget {
   const MonthlySipScreen({super.key});
@@ -12,6 +12,18 @@ class MonthlySipScreen extends StatefulWidget {
 }
 
 class _MonthlySipScreenState extends State<MonthlySipScreen> {
+  var isSIPCalculationReady = false;
+
+  var sipMaturityValue = 0;
+  var initialInvestmentAmount = 0;
+  var estimatedReturns = 0;
+
+  void resetHanlder() {
+    setState(() {
+      isSIPCalculationReady = false;
+    });
+  }
+
   void calculateMonthlySIP(
       double monthlyInvestment, double duration, double returnPercentage) {
     final convertedPercentage = returnPercentage / 1200;
@@ -22,6 +34,13 @@ class _MonthlySipScreenState extends State<MonthlySipScreen> {
 
     print("sipMaturityValue");
     print(sipMaturityValue);
+
+    setState(() {
+      this.sipMaturityValue = sipMaturityValue.toInt();
+      initialInvestmentAmount = (monthlyInvestment * duration).toInt();
+      estimatedReturns = this.sipMaturityValue - initialInvestmentAmount;
+      isSIPCalculationReady = true;
+    });
   }
 
   @override
@@ -30,23 +49,22 @@ class _MonthlySipScreenState extends State<MonthlySipScreen> {
       appBar: AppBar(
         title: const Text("Sip Calculator"),
       ),
-      body: Center(
-        child: Column(
-          children: [
-            SipForm(
-              calculateSIPWith: calculateMonthlySIP,
-            ),
-            TextButton(
-              onPressed: () => {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const CalculationHistory()),
-                ),
-              },
-              child: const Text("History"),
-            )
-          ],
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            children: [
+              SipForm(
+                calculateSIPWith: calculateMonthlySIP,
+                resetHandler: resetHanlder,
+              ),
+              if (isSIPCalculationReady)
+                SipMaturity(
+                    sipMaturityValue: sipMaturityValue.toString(),
+                    estimatedReturns: estimatedReturns.toString(),
+                    initialInvestmentAmount:
+                        initialInvestmentAmount.toString()),
+            ],
+          ),
         ),
       ),
     );

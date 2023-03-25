@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 
 class SipForm extends StatefulWidget {
   final Function calculateSIPWith;
-  const SipForm({required this.calculateSIPWith, super.key});
+  final Function resetHandler;
+  const SipForm(
+      {required this.calculateSIPWith, required this.resetHandler, super.key});
 
   @override
   State<SipForm> createState() => _SipFormState();
@@ -29,6 +31,8 @@ class _SipFormState extends State<SipForm> {
       periodError = false;
       isCalculated = false;
     });
+
+    widget.resetHandler();
   }
 
   void convertValuesAndCalculateSIP() {
