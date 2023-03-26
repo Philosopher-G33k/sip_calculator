@@ -158,7 +158,9 @@ class _SipFormState extends State<SipForm> {
                         decoration: const InputDecoration(
                           isDense: true,
                           border: OutlineInputBorder(),
-                          hintText: '0',
+                          hintText: '',
+                          labelText: '0',
+                          floatingLabelBehavior: FloatingLabelBehavior.never,
                         ),
                       ),
                     ),
@@ -195,7 +197,9 @@ class _SipFormState extends State<SipForm> {
                         decoration: const InputDecoration(
                           border: OutlineInputBorder(),
                           isDense: true,
-                          hintText: '0%',
+                          hintText: '',
+                          labelText: '0%',
+                          floatingLabelBehavior: FloatingLabelBehavior.never,
                         ),
                       ),
                     ),
@@ -235,7 +239,9 @@ class _SipFormState extends State<SipForm> {
                         decoration: const InputDecoration(
                           border: OutlineInputBorder(),
                           isDense: true,
-                          hintText: '0',
+                          hintText: '',
+                          labelText: '0',
+                          floatingLabelBehavior: FloatingLabelBehavior.never,
                         ),
                       ),
                     ),
