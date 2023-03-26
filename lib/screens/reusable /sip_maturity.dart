@@ -83,7 +83,10 @@ class SipMaturity extends StatelessWidget {
                 ],
               ),
             ),
-            const PieChartSample2(),
+            PieChartSample2(
+                estimatedReturns: int.parse(estimatedReturns),
+                initialInvestmentAmount: int.parse(initialInvestmentAmount),
+                sipMaturityValue: int.parse(sipMaturityValue)),
           ],
         ),
       ),

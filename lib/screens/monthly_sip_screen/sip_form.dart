@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class SipForm extends StatefulWidget {
   final Function calculateSIPWith;
@@ -120,8 +121,10 @@ class _SipFormState extends State<SipForm> {
                       padding: const EdgeInsets.only(left: 8, right: 8, top: 8),
                       child: TextField(
                         controller: monthlyInvestmentController,
-                        keyboardType: const TextInputType.numberWithOptions(
-                            decimal: true),
+                        keyboardType: TextInputType.number,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly
+                        ],
                         style: const TextStyle(
                             fontSize: 15, height: 0.75, color: Colors.black),
                         decoration: const InputDecoration(
@@ -198,6 +201,9 @@ class _SipFormState extends State<SipForm> {
                       child: TextField(
                         controller: periodController,
                         keyboardType: TextInputType.number,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly
+                        ],
                         style: const TextStyle(
                             fontSize: 15, height: 0.75, color: Colors.black),
                         decoration: const InputDecoration(
