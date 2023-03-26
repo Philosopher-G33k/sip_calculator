@@ -16,6 +16,7 @@ class _SipFormState extends State<SipForm> {
   bool monthlyInvestmentError = false;
   bool expectedReturnsError = false;
   bool periodError = false;
+  String errorMessage = "";
 
   final monthlyInvestmentController = TextEditingController();
   final expectedReturnController = TextEditingController();
@@ -52,6 +53,15 @@ class _SipFormState extends State<SipForm> {
         monthlyInvestmentError = true;
         expectedReturnsError = false;
         periodError = false;
+        errorMessage = "Monthly investment field cannot be empty";
+      });
+      state = false;
+    } else if (monthlyInvestmentController.text[0] == "0") {
+      setState(() {
+        monthlyInvestmentError = true;
+        expectedReturnsError = false;
+        periodError = false;
+        errorMessage = "Invalid data";
       });
       state = false;
     } else if (expectedReturnController.text == "") {
@@ -59,6 +69,15 @@ class _SipFormState extends State<SipForm> {
         monthlyInvestmentError = false;
         expectedReturnsError = true;
         periodError = false;
+        errorMessage = "Expected returns field cannot be empty";
+      });
+      state = false;
+    } else if (expectedReturnController.text[0] == "0") {
+      setState(() {
+        monthlyInvestmentError = false;
+        expectedReturnsError = true;
+        periodError = false;
+        errorMessage = "Invalid Data";
       });
       state = false;
     } else if (periodController.text == "") {
@@ -66,6 +85,15 @@ class _SipFormState extends State<SipForm> {
         monthlyInvestmentError = false;
         expectedReturnsError = false;
         periodError = true;
+        errorMessage = "Period (Years) field cannot be empty";
+      });
+      state = false;
+    } else if (periodController.text[0] == "0") {
+      setState(() {
+        monthlyInvestmentError = false;
+        expectedReturnsError = false;
+        periodError = true;
+        errorMessage = "Invalid Data";
       });
       state = false;
     } else {
@@ -139,8 +167,7 @@ class _SipFormState extends State<SipForm> {
               ),
             ),
             if (monthlyInvestmentError)
-              const ErrorForTextField(
-                  errorMessage: "Monthly investment field cannot be empty"),
+              ErrorForTextField(errorMessage: errorMessage),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
@@ -177,8 +204,7 @@ class _SipFormState extends State<SipForm> {
               ),
             ),
             if (expectedReturnsError)
-              const ErrorForTextField(
-                  errorMessage: "Expected returns field cannot be empty"),
+              ErrorForTextField(errorMessage: errorMessage),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
@@ -217,9 +243,7 @@ class _SipFormState extends State<SipForm> {
                 ],
               ),
             ),
-            if (periodError)
-              const ErrorForTextField(
-                  errorMessage: "Period (Years) field cannot be empty"),
+            if (periodError) ErrorForTextField(errorMessage: errorMessage),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
