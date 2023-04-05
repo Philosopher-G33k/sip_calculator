@@ -53,6 +53,7 @@ class _MonthlySipScreenState extends State<MonthlySipScreen> {
               SipForm(
                 calculateSIPWith: calculateMonthlySIP,
                 resetHandler: resetHanlder,
+                investmentFieldTitle: "Monthly Investment",
               ),
               if (isSIPCalculationReady)
                 SipMaturity(

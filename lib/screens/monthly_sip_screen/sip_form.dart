@@ -4,8 +4,12 @@ import 'package:flutter/services.dart';
 class SipForm extends StatefulWidget {
   final Function calculateSIPWith;
   final Function resetHandler;
+  final String investmentFieldTitle;
   const SipForm(
-      {required this.calculateSIPWith, required this.resetHandler, super.key});
+      {required this.calculateSIPWith,
+      required this.resetHandler,
+      required this.investmentFieldTitle,
+      super.key});
 
   @override
   State<SipForm> createState() => _SipFormState();
@@ -135,12 +139,12 @@ class _SipFormState extends State<SipForm> {
               padding: const EdgeInsets.all(8.0),
               child: Row(
                 children: [
-                  const Expanded(
+                  Expanded(
                     flex: 1,
                     child: Text(
-                      "Monthly Investment",
-                      style:
-                          TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                      widget.investmentFieldTitle,
+                      style: const TextStyle(
+                          fontSize: 15, fontWeight: FontWeight.bold),
                     ),
                   ),
                   Expanded(
