@@ -44,7 +44,7 @@ class _MonthlySipScreenState extends State<MonthlySipScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Sip Calculator"),
+        title: const Text("Monthly SIP Calculator"),
       ),
       body: SingleChildScrollView(
         child: Center(

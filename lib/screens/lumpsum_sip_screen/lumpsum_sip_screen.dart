@@ -43,7 +43,7 @@ class _LumpsumSipScreenState extends State<LumpsumSipScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Sip Calculator"),
+        title: const Text("Lumpsum SIP Calculator"),
       ),
       body: SingleChildScrollView(
         child: Center(
