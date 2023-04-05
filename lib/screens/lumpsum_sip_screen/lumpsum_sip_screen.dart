@@ -24,17 +24,16 @@ class _LumpsumSipScreenState extends State<LumpsumSipScreen> {
     });
   }
 
-  void calculateMonthlySIP(
-      double monthlyInvestment, double duration, double returnPercentage) {
-    final convertedPercentage = returnPercentage / 1200;
+  void calculateLumpSumSIP(
+      double lumpsumInvestment, double duration, double returnPercentage) {
+    final convertedPercentage = returnPercentage / 100;
     final convertedDuration = duration;
-    final sipMaturityValue = (monthlyInvestment *
-        (pow(1 + convertedPercentage, convertedDuration) - 1) *
-        ((1 + convertedPercentage) / (convertedPercentage)));
+    final sipMaturityValue =
+        (lumpsumInvestment * (pow(1 + convertedPercentage, convertedDuration)));
 
     setState(() {
       this.sipMaturityValue = sipMaturityValue.toInt();
-      initialInvestmentAmount = (monthlyInvestment * duration).toInt();
+      initialInvestmentAmount = (lumpsumInvestment).toInt();
       estimatedReturns = this.sipMaturityValue - initialInvestmentAmount;
       isSIPCalculationReady = true;
     });
@@ -51,7 +50,7 @@ class _LumpsumSipScreenState extends State<LumpsumSipScreen> {
           child: Column(
             children: [
               SipForm(
-                calculateSIPWith: calculateMonthlySIP,
+                calculateSIPWith: calculateLumpSumSIP,
                 resetHandler: resetHanlder,
                 investmentFieldTitle: "Lumpsum Investment",
               ),

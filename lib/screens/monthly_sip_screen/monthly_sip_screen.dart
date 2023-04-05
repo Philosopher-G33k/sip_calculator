@@ -27,7 +27,7 @@ class _MonthlySipScreenState extends State<MonthlySipScreen> {
   void calculateMonthlySIP(
       double monthlyInvestment, double duration, double returnPercentage) {
     final convertedPercentage = returnPercentage / 1200;
-    final convertedDuration = duration;
+    final convertedDuration = duration * 12;
     final sipMaturityValue = (monthlyInvestment *
         (pow(1 + convertedPercentage, convertedDuration) - 1) *
         ((1 + convertedPercentage) / (convertedPercentage)));

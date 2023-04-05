@@ -44,7 +44,7 @@ class _SipFormState extends State<SipForm> {
   void convertValuesAndCalculateSIP() {
     final monthlyInvestment = double.parse(monthlyInvestmentController.text);
     final expectedReturns = double.parse(expectedReturnController.text);
-    final period = double.parse(periodController.text) * 12;
+    final period = double.parse(periodController.text);
 
     widget.calculateSIPWith(monthlyInvestment, period, expectedReturns);
   }
