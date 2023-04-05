@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../reusable /pie_chat.dart';
+import '../reusable/pie_chat.dart';
 
 class SipMaturity extends StatelessWidget {
   final String sipMaturityValue;

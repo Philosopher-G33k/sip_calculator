@@ -1,8 +1,8 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import './sip_form.dart';
-import '../reusable /sip_maturity.dart';
+import '../reusable/sip_form.dart';
+import '../reusable/sip_maturity.dart';
 
 class MonthlySipScreen extends StatefulWidget {
   const MonthlySipScreen({super.key});
