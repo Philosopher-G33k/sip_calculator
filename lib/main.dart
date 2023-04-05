@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import './screens/monthly_sip_screen/monthly_sip_screen.dart';
+import './screens/lumpsum_sip_screen/lumpsum_sip_screen.dart';
 
 void main() {
   runApp(const MainApp());
@@ -14,7 +15,7 @@ class MainApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MonthlySipScreen(),
+      home: const LumpsumSipScreen(),
     );
   }
 }
