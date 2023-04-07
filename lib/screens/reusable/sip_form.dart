@@ -5,10 +5,12 @@ class SipForm extends StatefulWidget {
   final Function calculateSIPWith;
   final Function resetHandler;
   final String investmentFieldTitle;
+  final String percentageFieldTitle;
   const SipForm(
       {required this.calculateSIPWith,
       required this.resetHandler,
       required this.investmentFieldTitle,
+      this.percentageFieldTitle = "Expected Returns %",
       super.key});
 
   @override
@@ -178,13 +180,13 @@ class _SipFormState extends State<SipForm> {
               padding: const EdgeInsets.all(8.0),
               child: Row(
                 children: [
-                  const Expanded(
+                  Expanded(
                     flex: 1,
                     child: Padding(
-                      padding: EdgeInsets.only(right: 8),
+                      padding: const EdgeInsets.only(right: 8),
                       child: Text(
-                        "Expected Returns %",
-                        style: TextStyle(
+                        widget.percentageFieldTitle,
+                        style: const TextStyle(
                             fontSize: 15, fontWeight: FontWeight.bold),
                       ),
                     ),
