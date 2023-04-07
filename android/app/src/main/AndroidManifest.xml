@@ -2,7 +2,7 @@
     package="com.example.sip_calculator">
    <application
         android:label="sip_calculator"
-        android:name="${applicationName}"
+        android:name="Finance Calculator"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

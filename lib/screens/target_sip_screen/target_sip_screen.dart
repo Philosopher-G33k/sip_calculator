@@ -34,8 +34,8 @@ class _TargetSipScreenState extends State<TargetSipScreen> {
 
     setState(() {
       sipMaturityValue = monthlyInvestment.toInt();
-      initialInvestmentAmount = (monthlyInvestment * 12 * 20).toInt();
-      estimatedReturns = (targetSavings - monthlyInvestment * 12 * 20).toInt();
+      initialInvestmentAmount = (monthlyInvestment * convertedDuration).toInt();
+      estimatedReturns = (targetSavings - initialInvestmentAmount).toInt();
       isSIPCalculationReady = true;
     });
   }
