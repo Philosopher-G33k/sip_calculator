@@ -35,8 +35,8 @@ class _EMICalculatorScreenState extends State<EMICalculatorScreen> {
 
     setState(() {
       this.monthlyEMI = monthlyEMI.toInt();
-      totalAmount = (monthlyEMI * 12 * 20).toInt();
-      interestPaid = (monthlyEMI * 12 * 20 - loanAmount).toInt();
+      totalAmount = (monthlyEMI * convertedDuration).toInt();
+      interestPaid = (totalAmount - loanAmount).toInt();
       isSIPCalculationReady = true;
     });
   }

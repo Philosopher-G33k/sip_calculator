@@ -17,7 +17,7 @@ class MainApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const TargetSipScreen(),
+      home: const EMICalculatorScreen(),
     );
   }
 }
