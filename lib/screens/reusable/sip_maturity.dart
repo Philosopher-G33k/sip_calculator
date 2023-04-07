@@ -7,10 +7,17 @@ class SipMaturity extends StatelessWidget {
   final String initialInvestmentAmount;
   final String estimatedReturns;
 
+  final String title1Text;
+  final String title2Text;
+  final String title3Text;
+
   const SipMaturity(
       {required this.sipMaturityValue,
       required this.estimatedReturns,
       required this.initialInvestmentAmount,
+      this.title1Text = "The total value of your investment will be",
+      this.title2Text = "Invested Amount",
+      this.title3Text = "Est. Returns",
       super.key});
 
   @override
@@ -21,10 +28,12 @@ class SipMaturity extends StatelessWidget {
         elevation: 20,
         child: Column(
           children: [
-            const Padding(
-              padding: EdgeInsets.only(top: 20, bottom: 8, left: 16, right: 16),
-              child: Text("The total value of your investment will be",
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            Padding(
+              padding: const EdgeInsets.only(
+                  top: 20, bottom: 8, left: 16, right: 16),
+              child: Text(title1Text,
+                  style: const TextStyle(
+                      fontSize: 18, fontWeight: FontWeight.bold),
                   textAlign: TextAlign.center),
             ),
             Padding(
@@ -46,11 +55,11 @@ class SipMaturity extends StatelessWidget {
                     flex: 1,
                     child: Column(
                       children: [
-                        const Padding(
-                          padding: EdgeInsets.only(bottom: 8),
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 8),
                           child: Text(
-                            "Invested Amount",
-                            style: TextStyle(
+                            title2Text,
+                            style: const TextStyle(
                                 fontSize: 17, fontWeight: FontWeight.bold),
                           ),
                         ),
@@ -65,11 +74,11 @@ class SipMaturity extends StatelessWidget {
                     flex: 1,
                     child: Column(
                       children: [
-                        const Padding(
-                          padding: EdgeInsets.only(bottom: 10),
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 10),
                           child: Text(
-                            "Est. Returns",
-                            style: TextStyle(
+                            title3Text,
+                            style: const TextStyle(
                                 fontSize: 17, fontWeight: FontWeight.bold),
                           ),
                         ),
