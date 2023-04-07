@@ -14,9 +14,9 @@ class EMICalculatorScreen extends StatefulWidget {
 class _EMICalculatorScreenState extends State<EMICalculatorScreen> {
   var isSIPCalculationReady = false;
 
-  var sipMaturityValue = 0;
-  var initialInvestmentAmount = 0;
-  var estimatedReturns = 0;
+  var monthlyEMI = 0;
+  var interestPaid = 0;
+  var totalAmount = 0;
 
   void resetHanlder() {
     setState(() {
@@ -25,17 +25,18 @@ class _EMICalculatorScreenState extends State<EMICalculatorScreen> {
   }
 
   void calculateMonthlySIP(
-      double targetSavings, double duration, double returnPercentage) {
+      double loanAmount, double duration, double returnPercentage) {
     final convertedPercentage = returnPercentage / 1200;
     final convertedDuration = duration * 12;
-    final monthlyInvestment = (targetSavings) /
-        ((pow(1 + convertedPercentage, convertedDuration) - 1) *
-            ((1 + convertedPercentage).toInt() / (convertedPercentage)).ceil());
+    final monthlyEMI = (loanAmount *
+            convertedPercentage *
+            (pow(1 + convertedPercentage, convertedDuration))) /
+        (pow(1 + convertedPercentage, convertedDuration) - 1);
 
     setState(() {
-      sipMaturityValue = monthlyInvestment.toInt();
-      initialInvestmentAmount = (monthlyInvestment * 12 * 20).toInt();
-      estimatedReturns = (targetSavings - monthlyInvestment * 12 * 20).toInt();
+      this.monthlyEMI = monthlyEMI.toInt();
+      totalAmount = (monthlyEMI * 12 * 20).toInt();
+      interestPaid = (monthlyEMI * 12 * 20 - loanAmount).toInt();
       isSIPCalculationReady = true;
     });
   }
@@ -58,10 +59,12 @@ class _EMICalculatorScreenState extends State<EMICalculatorScreen> {
               ),
               if (isSIPCalculationReady)
                 SipMaturity(
-                  sipMaturityValue: sipMaturityValue.toString(),
-                  estimatedReturns: estimatedReturns.toString(),
-                  initialInvestmentAmount: initialInvestmentAmount.toString(),
+                  sipMaturityValue: monthlyEMI.toString(),
+                  estimatedReturns: totalAmount.toString(),
+                  initialInvestmentAmount: interestPaid.toString(),
                   title1Text: "Your monthly EMI's would be",
+                  title2Text: "Interest Paid",
+                  title3Text: "Total Amount",
                 ),
             ],
           ),
