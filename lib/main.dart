@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:sip_calculator/screens/landing_screen/landing_screen.dart';
-import './screens/emi_calculator_screen/emi_calculator_screen.dart';
-import './screens/monthly_sip_screen/monthly_sip_screen.dart';
-import './screens/lumpsum_sip_screen/lumpsum_sip_screen.dart';
-import './screens/target_sip_screen/target_sip_screen.dart';
 
 void main() {
   runApp(const MainApp());

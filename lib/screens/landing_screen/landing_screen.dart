@@ -24,6 +24,7 @@ class LandingScreen extends StatelessWidget {
               crossAxisCount: 2,
               children: [
                 CalculatorOptionCell(
+                  assetName: "monthly_sip.png",
                   title: "Monthly SIP",
                   tapHandler: () {
                     Navigator.of(context).push(
@@ -34,6 +35,7 @@ class LandingScreen extends StatelessWidget {
                   },
                 ),
                 CalculatorOptionCell(
+                  assetName: "lumpsum_sip.png",
                   title: "Lumpsum SIP",
                   tapHandler: () {
                     Navigator.of(context).push(
@@ -44,6 +46,7 @@ class LandingScreen extends StatelessWidget {
                   },
                 ),
                 CalculatorOptionCell(
+                  assetName: "target_sip.png",
                   title: "Target SIP",
                   tapHandler: () {
                     Navigator.of(context).push(
@@ -54,6 +57,7 @@ class LandingScreen extends StatelessWidget {
                   },
                 ),
                 CalculatorOptionCell(
+                  assetName: "emi_calculator.png",
                   title: "EMI Calculator",
                   tapHandler: () {
                     Navigator.of(context).push(
@@ -74,10 +78,12 @@ class LandingScreen extends StatelessWidget {
 
 class CalculatorOptionCell extends StatelessWidget {
   final String title;
+  final String assetName;
   final Function tapHandler;
   const CalculatorOptionCell({
     required this.title,
     required this.tapHandler,
+    required this.assetName,
     super.key,
   });
 
@@ -92,9 +98,22 @@ class CalculatorOptionCell extends StatelessWidget {
         onTap: () {
           tapHandler();
         },
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text(title),
+        child: Column(
+          children: [
+            Expanded(
+                flex: 2,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Image.asset("assets/icons/$assetName"),
+                )),
+            Expanded(
+              flex: 1,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(title),
+              ),
+            ),
+          ],
         ),
       ),
     );
