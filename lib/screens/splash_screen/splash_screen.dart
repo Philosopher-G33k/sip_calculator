@@ -24,7 +24,7 @@ class SplashScreen extends StatelessWidget {
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
-          child: Lottie.asset('assets/animations/finance_animation2.json'),
+          child: Lottie.asset('assets/animations/finance_animation1.json'),
         ),
       ),
     );
