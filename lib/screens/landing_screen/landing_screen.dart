@@ -108,9 +108,19 @@ class CalculatorOptionCell extends StatelessWidget {
                 )),
             Expanded(
               flex: 1,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(title),
+              child: Container(
+                decoration: const BoxDecoration(
+                  color: Colors.blue,
+                  borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(10),
+                      bottomRight: Radius.circular(10)),
+                ),
+                width: double.infinity,
+                child: Center(
+                    child: Text(
+                  title,
+                  style: const TextStyle(color: Colors.white),
+                )),
               ),
             ),
           ],
