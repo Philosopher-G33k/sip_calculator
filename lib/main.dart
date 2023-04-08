@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sip_calculator/screens/landing_screen/landing_screen.dart';
+import 'package:sip_calculator/screens/splash_screen/splash_screen.dart';
 
 void main() {
   runApp(const MainApp());
@@ -14,7 +15,7 @@ class MainApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const LandingScreen(),
+      home: const SplashScreen(),
     );
   }
 }
