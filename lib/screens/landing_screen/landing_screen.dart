@@ -1,5 +1,9 @@
 // ignore: implementation_imports
 import 'package:flutter/material.dart';
+import 'package:sip_calculator/screens/emi_calculator_screen/emi_calculator_screen.dart';
+import 'package:sip_calculator/screens/lumpsum_sip_screen/lumpsum_sip_screen.dart';
+import 'package:sip_calculator/screens/monthly_sip_screen/monthly_sip_screen.dart';
+import 'package:sip_calculator/screens/target_sip_screen/target_sip_screen.dart';
 // ignore: implementation_imports
 
 class LandingScreen extends StatelessWidget {
@@ -18,11 +22,47 @@ class LandingScreen extends StatelessWidget {
             padding: const EdgeInsets.all(10),
             child: GridView.count(
               crossAxisCount: 2,
-              children: const [
-                CalculatorOptionCell(title: "Monthly SIP"),
-                CalculatorOptionCell(title: "Lumpsum SIP"),
-                CalculatorOptionCell(title: "Target SIP"),
-                CalculatorOptionCell(title: "EMI Calculator"),
+              children: [
+                CalculatorOptionCell(
+                  title: "Monthly SIP",
+                  tapHandler: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const MonthlySipScreen(),
+                      ),
+                    );
+                  },
+                ),
+                CalculatorOptionCell(
+                  title: "Lumpsum SIP",
+                  tapHandler: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const LumpsumSipScreen(),
+                      ),
+                    );
+                  },
+                ),
+                CalculatorOptionCell(
+                  title: "Target SIP",
+                  tapHandler: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const TargetSipScreen(),
+                      ),
+                    );
+                  },
+                ),
+                CalculatorOptionCell(
+                  title: "EMI Calculator",
+                  tapHandler: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const EMICalculatorScreen(),
+                      ),
+                    );
+                  },
+                ),
               ],
             ),
           ),
@@ -34,8 +74,10 @@ class LandingScreen extends StatelessWidget {
 
 class CalculatorOptionCell extends StatelessWidget {
   final String title;
+  final Function tapHandler;
   const CalculatorOptionCell({
     required this.title,
+    required this.tapHandler,
     super.key,
   });
 
@@ -48,7 +90,7 @@ class CalculatorOptionCell extends StatelessWidget {
       elevation: 20,
       child: InkWell(
         onTap: () {
-          print("Clicked");
+          tapHandler();
         },
         child: Padding(
           padding: const EdgeInsets.all(8.0),
