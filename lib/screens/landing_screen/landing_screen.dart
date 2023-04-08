@@ -46,9 +46,14 @@ class CalculatorOptionCell extends StatelessWidget {
       shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(10))),
       elevation: 20,
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Text(title),
+      child: InkWell(
+        onTap: () {
+          print("Clicked");
+        },
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(title),
+        ),
       ),
     );
   }
