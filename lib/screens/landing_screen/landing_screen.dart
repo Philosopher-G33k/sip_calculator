@@ -15,43 +15,41 @@ class LandingScreen extends StatelessWidget {
         Expanded(
           flex: 1,
           child: Container(
-            padding: EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
             child: GridView.count(
               crossAxisCount: 2,
               children: const [
-                Card(
-                  margin: EdgeInsets.all(20),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(10))),
-                  elevation: 20,
-                  child: Text("Monthly SIP"),
-                ),
-                Card(
-                  margin: EdgeInsets.all(20),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(10))),
-                  elevation: 20,
-                  child: Text("Lumpsum SIP"),
-                ),
-                Card(
-                  margin: EdgeInsets.all(20),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(10))),
-                  elevation: 20,
-                  child: Text("Target SIP"),
-                ),
-                Card(
-                  margin: EdgeInsets.all(20),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(10))),
-                  elevation: 20,
-                  child: Text("EMI Calculator"),
-                ),
+                CalculatorOptionCell(title: "Monthly SIP"),
+                CalculatorOptionCell(title: "Lumpsum SIP"),
+                CalculatorOptionCell(title: "Target SIP"),
+                CalculatorOptionCell(title: "EMI Calculator"),
               ],
             ),
           ),
         )
       ]),
+    );
+  }
+}
+
+class CalculatorOptionCell extends StatelessWidget {
+  final String title;
+  const CalculatorOptionCell({
+    required this.title,
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      margin: const EdgeInsets.all(20),
+      shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(10))),
+      elevation: 20,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Text(title),
+      ),
     );
   }
 }
