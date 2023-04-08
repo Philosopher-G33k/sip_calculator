@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.sip_calculator">
    <application
-        android:label="sip_calculator"
+        android:label="Finance Calculator"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
