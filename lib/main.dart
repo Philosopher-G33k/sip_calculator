@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:sip_calculator/screens/splash_screen/splash_screen.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 void main() {
   runApp(const MainApp());
