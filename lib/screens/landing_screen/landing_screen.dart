@@ -110,7 +110,7 @@ class CalculatorOptionCell extends StatelessWidget {
               flex: 1,
               child: Container(
                 decoration: const BoxDecoration(
-                  color: Colors.blue,
+                  color: Color.fromRGBO(33, 150, 243, 1),
                   borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(10),
                       bottomRight: Radius.circular(10)),
