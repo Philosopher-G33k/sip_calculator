@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import '../reusable/sip_form.dart';
 import '../reusable/sip_maturity.dart';
 
+import '../../utils/utils.dart';
+import 'package:in_app_review/in_app_review.dart';
+
 class EMICalculatorScreen extends StatefulWidget {
   const EMICalculatorScreen({super.key});
 
@@ -18,14 +21,22 @@ class _EMICalculatorScreenState extends State<EMICalculatorScreen> {
   var interestPaid = 0;
   var totalAmount = 0;
 
+  final InAppReview _inAppReview = InAppReview.instance;
+
   void resetHanlder() {
     setState(() {
       isSIPCalculationReady = false;
     });
   }
 
+  void _requestReview() async {
+    if (await _inAppReview.isAvailable()) {
+      _inAppReview.requestReview();
+    }
+  }
+
   void calculateMonthlySIP(
-      double loanAmount, double duration, double returnPercentage) {
+      double loanAmount, double duration, double returnPercentage) async {
     final convertedPercentage = returnPercentage / 1200;
     final convertedDuration = duration * 12;
     final monthlyEMI = (loanAmount *
@@ -39,6 +50,16 @@ class _EMICalculatorScreenState extends State<EMICalculatorScreen> {
       interestPaid = (totalAmount - loanAmount).toInt();
       isSIPCalculationReady = true;
     });
+
+    int counter = await Utils().readCounter();
+    if (counter >= 5) {
+      // Show the prompt
+      // Reset the counter
+      _requestReview();
+      await Utils().resetCounter();
+    } else {
+      await Utils().incrementCounter();
+    }
   }
 
   @override
