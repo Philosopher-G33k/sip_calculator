@@ -43,7 +43,6 @@ class _MonthlySipScreenState extends State<MonthlySipScreen> {
     if (counter >= 5) {
       // Show the prompt
       // Reset the counter
-      print(counter);
     } else {
       await Utils().incrementCounter();
     }
