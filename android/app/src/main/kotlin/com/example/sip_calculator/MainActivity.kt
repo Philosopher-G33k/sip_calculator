@@ -1,4 +1,4 @@
-package com.example.sip_calculator
+package com.ishanmalviya.sip_calculator
 
 import io.flutter.embedding.android.FlutterActivity
 
