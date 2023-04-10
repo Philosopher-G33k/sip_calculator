@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import '../reusable/sip_form.dart';
 import '../reusable/sip_maturity.dart';
 
+import '../../utils/utils.dart';
+import 'package:in_app_review/in_app_review.dart';
+
 class LumpsumSipScreen extends StatefulWidget {
   const LumpsumSipScreen({super.key});
 
@@ -18,14 +21,22 @@ class _LumpsumSipScreenState extends State<LumpsumSipScreen> {
   var initialInvestmentAmount = 0;
   var estimatedReturns = 0;
 
+  final InAppReview _inAppReview = InAppReview.instance;
+
   void resetHanlder() {
     setState(() {
       isSIPCalculationReady = false;
     });
   }
 
-  void calculateLumpSumSIP(
-      double lumpsumInvestment, double duration, double returnPercentage) {
+  void _requestReview() async {
+    if (await _inAppReview.isAvailable()) {
+      _inAppReview.requestReview();
+    }
+  }
+
+  void calculateLumpSumSIP(double lumpsumInvestment, double duration,
+      double returnPercentage) async {
     final convertedPercentage = returnPercentage / 100;
     final convertedDuration = duration;
     final sipMaturityValue =
@@ -37,6 +48,16 @@ class _LumpsumSipScreenState extends State<LumpsumSipScreen> {
       estimatedReturns = this.sipMaturityValue - initialInvestmentAmount;
       isSIPCalculationReady = true;
     });
+
+    int counter = await Utils().readCounter();
+    if (counter >= 5) {
+      // Show the prompt
+      // Reset the counter
+      _requestReview();
+      await Utils().resetCounter();
+    } else {
+      await Utils().incrementCounter();
+    }
   }
 
   @override
