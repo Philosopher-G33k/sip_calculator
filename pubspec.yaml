@@ -15,6 +15,7 @@ dependencies:
   flutter_native_splash: ^2.2.19
   shared_preferences: ^2.1.0
   in_app_review: ^2.0.6
+  google_mobile_ads: ^2.4.0
 
 dev_dependencies:
   flutter_test:
