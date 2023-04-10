@@ -4,6 +4,11 @@
         android:label="SIP Calculator"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
+
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-8891336915917777~6057049333"/>
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
