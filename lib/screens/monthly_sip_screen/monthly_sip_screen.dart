@@ -5,6 +5,8 @@ import '../reusable/sip_form.dart';
 import '../reusable/sip_maturity.dart';
 import '../../utils/utils.dart';
 
+import 'package:in_app_review/in_app_review.dart';
+
 class MonthlySipScreen extends StatefulWidget {
   const MonthlySipScreen({super.key});
 
@@ -19,10 +21,23 @@ class _MonthlySipScreenState extends State<MonthlySipScreen> {
   var initialInvestmentAmount = 0;
   var estimatedReturns = 0;
 
+  final InAppReview _inAppReview = InAppReview.instance;
+
   void resetHanlder() {
     setState(() {
       isSIPCalculationReady = false;
     });
+  }
+
+  Future<void> _openStoreListing() => _inAppReview.openStoreListing(
+        appStoreId: "_appStoreId",
+        microsoftStoreId: "_microsoftStoreId",
+      );
+
+  void _requestReview() async {
+    if (await _inAppReview.isAvailable()) {
+      _inAppReview.requestReview();
+    }
   }
 
   void calculateMonthlySIP(double monthlyInvestment, double duration,
@@ -43,6 +58,8 @@ class _MonthlySipScreenState extends State<MonthlySipScreen> {
     if (counter >= 5) {
       // Show the prompt
       // Reset the counter
+      _requestReview();
+      await Utils().resetCounter();
     } else {
       await Utils().incrementCounter();
     }
