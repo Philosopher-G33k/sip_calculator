@@ -29,11 +29,6 @@ class _MonthlySipScreenState extends State<MonthlySipScreen> {
     });
   }
 
-  Future<void> _openStoreListing() => _inAppReview.openStoreListing(
-        appStoreId: "_appStoreId",
-        microsoftStoreId: "_microsoftStoreId",
-      );
-
   void _requestReview() async {
     if (await _inAppReview.isAvailable()) {
       _inAppReview.requestReview();
