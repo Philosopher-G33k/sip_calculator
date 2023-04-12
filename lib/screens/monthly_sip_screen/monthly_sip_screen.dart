@@ -95,34 +95,38 @@ class _MonthlySipScreenState extends State<MonthlySipScreen> {
       appBar: AppBar(
         title: const Text("Monthly SIP Calculator"),
       ),
-      body: SingleChildScrollView(
-        child: Center(
-          child: Column(
-            children: [
-              SipForm(
-                calculateSIPWith: calculateMonthlySIP,
-                resetHandler: resetHanlder,
-                investmentFieldTitle: "Monthly Investment",
-              ),
-              if (isSIPCalculationReady)
-                SipMaturity(
-                    sipMaturityValue: sipMaturityValue.toString(),
-                    estimatedReturns: estimatedReturns.toString(),
-                    initialInvestmentAmount:
-                        initialInvestmentAmount.toString()),
-              if (_bannerAd != null)
-                Align(
-                  alignment: Alignment.topCenter,
-                  child: Container(
-                    width: _bannerAd!.size.width.toDouble(),
-                    height: _bannerAd!.size.height.toDouble(),
-                    child: AdWidget(ad: _bannerAd!),
-                  ),
+      body: CustomScrollView(slivers: [
+        SliverFillRemaining(
+          hasScrollBody: false,
+          child: Center(
+            child: Column(
+              children: [
+                SipForm(
+                  calculateSIPWith: calculateMonthlySIP,
+                  resetHandler: resetHanlder,
+                  investmentFieldTitle: "Monthly Investment",
                 ),
-            ],
+                if (isSIPCalculationReady)
+                  SipMaturity(
+                      sipMaturityValue: sipMaturityValue.toString(),
+                      estimatedReturns: estimatedReturns.toString(),
+                      initialInvestmentAmount:
+                          initialInvestmentAmount.toString()),
+                if (_bannerAd != null)
+                  Align(
+                    alignment: FractionalOffset.bottomCenter,
+                    child: Container(
+                      alignment: Alignment.bottomCenter,
+                      width: _bannerAd!.size.width.toDouble(),
+                      height: _bannerAd!.size.height.toDouble(),
+                      child: AdWidget(ad: _bannerAd!),
+                    ),
+                  ),
+              ],
+            ),
           ),
         ),
-      ),
+      ]),
     );
   }
 }
