@@ -106,12 +106,6 @@ class _MonthlySipScreenState extends State<MonthlySipScreen> {
                   resetHandler: resetHanlder,
                   investmentFieldTitle: "Monthly Investment",
                 ),
-                if (isSIPCalculationReady)
-                  SipMaturity(
-                      sipMaturityValue: sipMaturityValue.toString(),
-                      estimatedReturns: estimatedReturns.toString(),
-                      initialInvestmentAmount:
-                          initialInvestmentAmount.toString()),
                 if (_bannerAd != null)
                   Align(
                     alignment: FractionalOffset.bottomCenter,
@@ -122,6 +116,12 @@ class _MonthlySipScreenState extends State<MonthlySipScreen> {
                       child: AdWidget(ad: _bannerAd!),
                     ),
                   ),
+                if (isSIPCalculationReady)
+                  SipMaturity(
+                      sipMaturityValue: sipMaturityValue.toString(),
+                      estimatedReturns: estimatedReturns.toString(),
+                      initialInvestmentAmount:
+                          initialInvestmentAmount.toString()),
               ],
             ),
           ),
