@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sip_calculator/screens/settings_screen/settings_screen.dart';
 import 'package:sip_calculator/screens/splash_screen/splash_screen.dart';
 
 void main() {

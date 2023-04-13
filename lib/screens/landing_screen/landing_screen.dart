@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:sip_calculator/screens/emi_calculator_screen/emi_calculator_screen.dart';
 import 'package:sip_calculator/screens/lumpsum_sip_screen/lumpsum_sip_screen.dart';
 import 'package:sip_calculator/screens/monthly_sip_screen/monthly_sip_screen.dart';
+import 'package:sip_calculator/screens/settings_screen/settings_screen.dart';
 import 'package:sip_calculator/screens/target_sip_screen/target_sip_screen.dart';
 
 // TODO: Import google_mobile_ads.dart
@@ -54,6 +55,19 @@ class _LandingScreenState extends State<LandingScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Finance Calculator"),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.settings),
+            onPressed: () {
+              // Do something when the button is pressed
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => const SettingsScreen(),
+                ),
+              );
+            },
+          ),
+        ],
       ),
       body: Column(children: [
         Expanded(
