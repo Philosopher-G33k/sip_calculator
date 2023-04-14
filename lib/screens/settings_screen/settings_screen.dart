@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:sip_calculator/utils/utils.dart';
 import '../../utils/ad_helper.dart';
 
 import 'package:share_plus/share_plus.dart';
@@ -63,7 +64,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               sectionTitle: "GENERAL",
             ),
             const Divider(),
-            const NumberFormatCell(),
+            NumberFormatCell(tapHandler: Utils().formatNumbers),
             const Divider(),
             GeneralCell(
               tapHandler: shareWithFriends,
@@ -126,14 +127,16 @@ class SectionHeader extends StatelessWidget {
 }
 
 class NumberFormatCell extends StatelessWidget {
+  final Function tapHandler;
   const NumberFormatCell({
+    required this.tapHandler,
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () => tapHandler("en-IN"),
       child: Row(
         children: const [
           Padding(
@@ -144,7 +147,7 @@ class NumberFormatCell extends StatelessWidget {
           Padding(
             padding: EdgeInsets.only(top: 8, bottom: 8, right: 8),
             child: Text(
-              "123456",
+              "123456789",
               style: TextStyle(color: Colors.black26),
             ),
           ),
