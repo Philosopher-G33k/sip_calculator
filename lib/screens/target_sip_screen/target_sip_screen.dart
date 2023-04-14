@@ -7,7 +7,6 @@ import '../reusable/sip_maturity.dart';
 import '../../utils/utils.dart';
 import 'package:in_app_review/in_app_review.dart';
 
-// TODO: Import google_mobile_ads.dart
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import '../../utils/ad_helper.dart';
 
@@ -71,10 +70,9 @@ class _TargetSipScreenState extends State<TargetSipScreen> {
   void initState() {
     super.initState();
 
-    // TODO: Load a banner ad
     BannerAd(
       adUnitId: AdHelper.bannerAdUnitId,
-      request: AdRequest(),
+      request: const AdRequest(),
       size: AdSize.banner,
       listener: BannerAdListener(
         onAdLoaded: (ad) {
@@ -96,15 +94,37 @@ class _TargetSipScreenState extends State<TargetSipScreen> {
       appBar: AppBar(
         title: const Text("Target Savings Calculator"),
       ),
-      body: SingleChildScrollView(
-        child: Center(
-          child: Column(
-            children: [
-              SipForm(
-                calculateSIPWith: calculateMonthlySIP,
-                resetHandler: resetHanlder,
-                investmentFieldTitle: "Target Savings",
+      body: Stack(
+        children: [
+          SingleChildScrollView(
+            child: Center(
+              child: Column(
+                children: [
+                  SipForm(
+                    calculateSIPWith: calculateMonthlySIP,
+                    resetHandler: resetHanlder,
+                    investmentFieldTitle: "Target Savings",
+                  ),
+                  if (isSIPCalculationReady)
+                    SipMaturity(
+                      sipMaturityValue: sipMaturityValue.toString(),
+                      estimatedReturns: estimatedReturns.toString(),
+                      initialInvestmentAmount:
+                          initialInvestmentAmount.toString(),
+                      title1Text:
+                          "Your monthly investments to meet your target would be",
+                    ),
+                  const SizedBox(
+                    width: double.infinity,
+                    height: 50,
+                  )
+                ],
               ),
+            ),
+          ),
+          Column(
+            children: [
+              const Spacer(),
               if (_bannerAd != null)
                 Align(
                   alignment: FractionalOffset.bottomCenter,
@@ -115,17 +135,9 @@ class _TargetSipScreenState extends State<TargetSipScreen> {
                     child: AdWidget(ad: _bannerAd!),
                   ),
                 ),
-              if (isSIPCalculationReady)
-                SipMaturity(
-                  sipMaturityValue: sipMaturityValue.toString(),
-                  estimatedReturns: estimatedReturns.toString(),
-                  initialInvestmentAmount: initialInvestmentAmount.toString(),
-                  title1Text:
-                      "Your monthly investments to meet your target would be",
-                ),
             ],
-          ),
-        ),
+          )
+        ],
       ),
     );
   }
