@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import '../../utils/ad_helper.dart';
 
+import 'package:share_plus/share_plus.dart';
+
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
 
@@ -15,6 +17,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   void shareWithFriends() {
     print("Hello");
+    Share.share('check out my website https://example.com',
+        subject: 'Look what I made!');
   }
 
   @override
