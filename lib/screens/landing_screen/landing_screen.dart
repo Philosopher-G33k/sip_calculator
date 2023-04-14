@@ -6,7 +6,6 @@ import 'package:sip_calculator/screens/monthly_sip_screen/monthly_sip_screen.dar
 import 'package:sip_calculator/screens/settings_screen/settings_screen.dart';
 import 'package:sip_calculator/screens/target_sip_screen/target_sip_screen.dart';
 
-// TODO: Import google_mobile_ads.dart
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import '../../utils/ad_helper.dart';
 // ignore: implementation_imports
@@ -19,11 +18,9 @@ class LandingScreen extends StatefulWidget {
 }
 
 class _LandingScreenState extends State<LandingScreen> {
-// TODO: Add _bannerAd
   BannerAd? _bannerAd;
 
   Future<InitializationStatus> _initGoogleMobileAds() {
-    // TODO: Initialize Google Mobile Ads SDK
     return MobileAds.instance.initialize();
   }
 
@@ -31,10 +28,9 @@ class _LandingScreenState extends State<LandingScreen> {
   void initState() {
     super.initState();
 
-    // TODO: Load a banner ad
     BannerAd(
       adUnitId: AdHelper.bannerAdUnitId,
-      request: AdRequest(),
+      request: const AdRequest(),
       size: AdSize.banner,
       listener: BannerAdListener(
         onAdLoaded: (ad) {

@@ -7,7 +7,6 @@ import '../reusable/sip_maturity.dart';
 import '../../utils/utils.dart';
 import 'package:in_app_review/in_app_review.dart';
 
-// TODO: Import google_mobile_ads.dart
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import '../../utils/ad_helper.dart';
 
@@ -72,10 +71,9 @@ class _LumpsumSipScreenState extends State<LumpsumSipScreen> {
   void initState() {
     super.initState();
 
-    // TODO: Load a banner ad
     BannerAd(
       adUnitId: AdHelper.bannerAdUnitId,
-      request: AdRequest(),
+      request: const AdRequest(),
       size: AdSize.banner,
       listener: BannerAdListener(
         onAdLoaded: (ad) {
@@ -92,7 +90,7 @@ class _LumpsumSipScreenState extends State<LumpsumSipScreen> {
   }
 
   void scrollToBottom() {
-    WidgetsBinding.instance!.addPostFrameCallback((_) =>
+    WidgetsBinding.instance.addPostFrameCallback((_) =>
         _scrollController.animateTo(_scrollController.position.maxScrollExtent,
             duration: const Duration(milliseconds: 500),
             curve: Curves.easeOut));

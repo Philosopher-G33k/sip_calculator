@@ -69,7 +69,7 @@ class _TargetSipScreenState extends State<TargetSipScreen> {
   }
 
   void scrollToBottom() {
-    WidgetsBinding.instance!.addPostFrameCallback((_) =>
+    WidgetsBinding.instance.addPostFrameCallback((_) =>
         _scrollController.animateTo(_scrollController.position.maxScrollExtent,
             duration: const Duration(milliseconds: 500),
             curve: Curves.easeOut));

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-// TODO: Import google_mobile_ads.dart
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import '../../utils/ad_helper.dart';
 
