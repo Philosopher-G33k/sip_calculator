@@ -27,6 +27,8 @@ class _LumpsumSipScreenState extends State<LumpsumSipScreen> {
 
   BannerAd? _bannerAd;
 
+  final ScrollController _scrollController = ScrollController();
+
   final InAppReview _inAppReview = InAppReview.instance;
 
   void resetHanlder() {
@@ -89,6 +91,13 @@ class _LumpsumSipScreenState extends State<LumpsumSipScreen> {
     ).load();
   }
 
+  void scrollToBottom() {
+    WidgetsBinding.instance!.addPostFrameCallback((_) =>
+        _scrollController.animateTo(_scrollController.position.maxScrollExtent,
+            duration: const Duration(milliseconds: 500),
+            curve: Curves.easeOut));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -98,6 +107,7 @@ class _LumpsumSipScreenState extends State<LumpsumSipScreen> {
       body: Stack(
         children: [
           SingleChildScrollView(
+            controller: _scrollController,
             child: Center(
               child: Column(
                 children: [
@@ -108,10 +118,12 @@ class _LumpsumSipScreenState extends State<LumpsumSipScreen> {
                   ),
                   if (isSIPCalculationReady)
                     SipMaturity(
-                        sipMaturityValue: sipMaturityValue.toString(),
-                        estimatedReturns: estimatedReturns.toString(),
-                        initialInvestmentAmount:
-                            initialInvestmentAmount.toString()),
+                      sipMaturityValue: sipMaturityValue.toString(),
+                      estimatedReturns: estimatedReturns.toString(),
+                      initialInvestmentAmount:
+                          initialInvestmentAmount.toString(),
+                      scrollForFocus: scrollToBottom,
+                    ),
                   const SizedBox(
                     width: double.infinity,
                     height: 50,

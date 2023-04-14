@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../reusable/pie_chat.dart';
 
-class SipMaturity extends StatelessWidget {
+class SipMaturity extends StatefulWidget {
   final String sipMaturityValue;
   final String initialInvestmentAmount;
   final String estimatedReturns;
@@ -11,14 +11,34 @@ class SipMaturity extends StatelessWidget {
   final String title2Text;
   final String title3Text;
 
+  final Function scrollForFocus;
+
   const SipMaturity(
       {required this.sipMaturityValue,
       required this.estimatedReturns,
       required this.initialInvestmentAmount,
+      required this.scrollForFocus,
       this.title1Text = "The total value of your investment will be",
       this.title2Text = "Invested Amount",
       this.title3Text = "Est. Returns",
       super.key});
+
+  @override
+  State<SipMaturity> createState() => _SipMaturityState();
+}
+
+class _SipMaturityState extends State<SipMaturity> {
+  @override
+  void initState() {
+    super.initState();
+    widget.scrollForFocus();
+  }
+
+  @override
+  void didUpdateWidget(Widget oldWidget) {
+    super.didUpdateWidget(oldWidget as SipMaturity);
+    widget.scrollForFocus();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +51,7 @@ class SipMaturity extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(
                   top: 20, bottom: 8, left: 16, right: 16),
-              child: Text(title1Text,
+              child: Text(widget.title1Text,
                   style: const TextStyle(
                       fontSize: 18, fontWeight: FontWeight.bold),
                   textAlign: TextAlign.center),
@@ -40,7 +60,7 @@ class SipMaturity extends StatelessWidget {
               padding: const EdgeInsets.only(
                   top: 10, bottom: 20, left: 16, right: 16),
               child: Text(
-                sipMaturityValue,
+                widget.sipMaturityValue,
                 style: const TextStyle(
                     fontSize: 17,
                     fontWeight: FontWeight.bold,
@@ -58,13 +78,13 @@ class SipMaturity extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.only(bottom: 8),
                           child: Text(
-                            title2Text,
+                            widget.title2Text,
                             style: const TextStyle(
                                 fontSize: 17, fontWeight: FontWeight.bold),
                           ),
                         ),
                         Text(
-                          initialInvestmentAmount,
+                          widget.initialInvestmentAmount,
                           style: const TextStyle(fontSize: 15),
                         ),
                       ],
@@ -77,13 +97,13 @@ class SipMaturity extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.only(bottom: 10),
                           child: Text(
-                            title3Text,
+                            widget.title3Text,
                             style: const TextStyle(
                                 fontSize: 17, fontWeight: FontWeight.bold),
                           ),
                         ),
                         Text(
-                          estimatedReturns,
+                          widget.estimatedReturns,
                           style: const TextStyle(fontSize: 15),
                         ),
                       ],
@@ -93,9 +113,10 @@ class SipMaturity extends StatelessWidget {
               ),
             ),
             PieChartSample2(
-                estimatedReturns: int.parse(estimatedReturns),
-                initialInvestmentAmount: int.parse(initialInvestmentAmount),
-                sipMaturityValue: int.parse(sipMaturityValue)),
+                estimatedReturns: int.parse(widget.estimatedReturns),
+                initialInvestmentAmount:
+                    int.parse(widget.initialInvestmentAmount),
+                sipMaturityValue: int.parse(widget.sipMaturityValue)),
           ],
         ),
       ),

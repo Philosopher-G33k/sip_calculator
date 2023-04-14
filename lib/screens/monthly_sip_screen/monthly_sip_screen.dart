@@ -26,6 +26,8 @@ class _MonthlySipScreenState extends State<MonthlySipScreen> {
 
   BannerAd? _bannerAd;
 
+  final ScrollController _scrollController = ScrollController();
+
   final InAppReview _inAppReview = InAppReview.instance;
 
   void resetHanlder() {
@@ -65,14 +67,19 @@ class _MonthlySipScreenState extends State<MonthlySipScreen> {
     }
   }
 
+  void scrollToBottom() {
+    WidgetsBinding.instance!.addPostFrameCallback((_) =>
+        _scrollController.animateTo(_scrollController.position.maxScrollExtent,
+            duration: const Duration(milliseconds: 500),
+            curve: Curves.easeOut));
+  }
+
   @override
   void initState() {
     super.initState();
-
-    // TODO: Load a banner ad
     BannerAd(
       adUnitId: AdHelper.bannerAdUnitId,
-      request: AdRequest(),
+      request: const AdRequest(),
       size: AdSize.banner,
       listener: BannerAdListener(
         onAdLoaded: (ad) {
@@ -97,6 +104,7 @@ class _MonthlySipScreenState extends State<MonthlySipScreen> {
       body: Stack(
         children: [
           SingleChildScrollView(
+            controller: _scrollController,
             child: Center(
               child: Column(
                 children: [
@@ -107,10 +115,12 @@ class _MonthlySipScreenState extends State<MonthlySipScreen> {
                   ),
                   if (isSIPCalculationReady)
                     SipMaturity(
-                        sipMaturityValue: sipMaturityValue.toString(),
-                        estimatedReturns: estimatedReturns.toString(),
-                        initialInvestmentAmount:
-                            initialInvestmentAmount.toString()),
+                      sipMaturityValue: sipMaturityValue.toString(),
+                      estimatedReturns: estimatedReturns.toString(),
+                      initialInvestmentAmount:
+                          initialInvestmentAmount.toString(),
+                      scrollForFocus: scrollToBottom,
+                    ),
                   const SizedBox(
                     width: double.infinity,
                     height: 50,
