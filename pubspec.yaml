@@ -17,6 +17,7 @@ dependencies:
   in_app_review: ^2.0.6
   google_mobile_ads: ^2.4.0
   share_plus: ^6.3.2
+  intl: ^0.18.0
 
 dev_dependencies:
   flutter_test:
