@@ -26,6 +26,8 @@ class _TargetSipScreenState extends State<TargetSipScreen> {
 
   BannerAd? _bannerAd;
 
+  final ScrollController _scrollController = ScrollController();
+
   final InAppReview _inAppReview = InAppReview.instance;
 
   void resetHanlder() {
@@ -66,6 +68,13 @@ class _TargetSipScreenState extends State<TargetSipScreen> {
     }
   }
 
+  void scrollToBottom() {
+    WidgetsBinding.instance!.addPostFrameCallback((_) =>
+        _scrollController.animateTo(_scrollController.position.maxScrollExtent,
+            duration: const Duration(milliseconds: 500),
+            curve: Curves.easeOut));
+  }
+
   @override
   void initState() {
     super.initState();
@@ -97,6 +106,7 @@ class _TargetSipScreenState extends State<TargetSipScreen> {
       body: Stack(
         children: [
           SingleChildScrollView(
+            controller: _scrollController,
             child: Center(
               child: Column(
                 children: [
@@ -111,6 +121,7 @@ class _TargetSipScreenState extends State<TargetSipScreen> {
                       estimatedReturns: estimatedReturns.toString(),
                       initialInvestmentAmount:
                           initialInvestmentAmount.toString(),
+                      scrollForFocus: scrollToBottom,
                       title1Text:
                           "Your monthly investments to meet your target would be",
                     ),
