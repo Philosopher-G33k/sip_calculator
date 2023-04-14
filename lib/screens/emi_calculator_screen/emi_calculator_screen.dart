@@ -27,6 +27,8 @@ class _EMICalculatorScreenState extends State<EMICalculatorScreen> {
 
   BannerAd? _bannerAd;
 
+  final ScrollController _scrollController = ScrollController();
+
   final InAppReview _inAppReview = InAppReview.instance;
 
   void resetHanlder() {
@@ -91,6 +93,13 @@ class _EMICalculatorScreenState extends State<EMICalculatorScreen> {
     ).load();
   }
 
+  void scrollToBottom() {
+    WidgetsBinding.instance!.addPostFrameCallback((_) =>
+        _scrollController.animateTo(_scrollController.position.maxScrollExtent,
+            duration: const Duration(milliseconds: 500),
+            curve: Curves.easeOut));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -100,6 +109,7 @@ class _EMICalculatorScreenState extends State<EMICalculatorScreen> {
       body: Stack(
         children: [
           SingleChildScrollView(
+            controller: _scrollController,
             child: Center(
               child: Column(
                 children: [
@@ -114,6 +124,7 @@ class _EMICalculatorScreenState extends State<EMICalculatorScreen> {
                       sipMaturityValue: monthlyEMI.toString(),
                       estimatedReturns: totalAmount.toString(),
                       initialInvestmentAmount: interestPaid.toString(),
+                      scrollForFocus: scrollToBottom,
                       title1Text: "Your monthly EMI's would be",
                       title2Text: "Interest Paid",
                       title3Text: "Total Amount",
