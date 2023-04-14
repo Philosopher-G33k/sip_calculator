@@ -4,6 +4,7 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import '../../utils/ad_helper.dart';
 
 import 'package:share_plus/share_plus.dart';
+import 'package:in_app_review/in_app_review.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -14,6 +15,13 @@ class SettingsScreen extends StatefulWidget {
 
 class _SettingsScreenState extends State<SettingsScreen> {
   BannerAd? _bannerAd;
+  final InAppReview _inAppReview = InAppReview.instance;
+
+  void rateThisApp() async {
+    if (await _inAppReview.isAvailable()) {
+      _inAppReview.openStoreListing();
+    }
+  }
 
   void shareWithFriends() {
     print("Hello");
@@ -72,7 +80,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
             const Divider(),
             GeneralCell(
-              tapHandler: shareWithFriends,
+              tapHandler: rateThisApp,
               title: "Rate This App",
             ),
             const Divider(),
