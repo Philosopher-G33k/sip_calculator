@@ -97,16 +97,38 @@ class _EMICalculatorScreenState extends State<EMICalculatorScreen> {
       appBar: AppBar(
         title: const Text("EMI Calculator"),
       ),
-      body: SingleChildScrollView(
-        child: Center(
-          child: Column(
-            children: [
-              SipForm(
-                calculateSIPWith: calculateMonthlySIP,
-                resetHandler: resetHanlder,
-                investmentFieldTitle: "Loan Amount",
-                percentageFieldTitle: "Interest Rate",
+      body: Stack(
+        children: [
+          SingleChildScrollView(
+            child: Center(
+              child: Column(
+                children: [
+                  SipForm(
+                    calculateSIPWith: calculateMonthlySIP,
+                    resetHandler: resetHanlder,
+                    investmentFieldTitle: "Loan Amount",
+                    percentageFieldTitle: "Interest Rate",
+                  ),
+                  if (isSIPCalculationReady)
+                    SipMaturity(
+                      sipMaturityValue: monthlyEMI.toString(),
+                      estimatedReturns: totalAmount.toString(),
+                      initialInvestmentAmount: interestPaid.toString(),
+                      title1Text: "Your monthly EMI's would be",
+                      title2Text: "Interest Paid",
+                      title3Text: "Total Amount",
+                    ),
+                  const SizedBox(
+                    width: double.infinity,
+                    height: 50,
+                  )
+                ],
               ),
+            ),
+          ),
+          Column(
+            children: [
+              const Spacer(),
               if (_bannerAd != null)
                 Align(
                   alignment: FractionalOffset.bottomCenter,
@@ -117,18 +139,9 @@ class _EMICalculatorScreenState extends State<EMICalculatorScreen> {
                     child: AdWidget(ad: _bannerAd!),
                   ),
                 ),
-              if (isSIPCalculationReady)
-                SipMaturity(
-                  sipMaturityValue: monthlyEMI.toString(),
-                  estimatedReturns: totalAmount.toString(),
-                  initialInvestmentAmount: interestPaid.toString(),
-                  title1Text: "Your monthly EMI's would be",
-                  title2Text: "Interest Paid",
-                  title3Text: "Total Amount",
-                ),
             ],
-          ),
-        ),
+          )
+        ],
       ),
     );
   }
