@@ -7,7 +7,6 @@ import '../../utils/utils.dart';
 
 import 'package:in_app_review/in_app_review.dart';
 
-// TODO: Import google_mobile_ads.dart
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import '../../utils/ad_helper.dart';
 
@@ -95,15 +94,34 @@ class _MonthlySipScreenState extends State<MonthlySipScreen> {
       appBar: AppBar(
         title: const Text("Monthly SIP Calculator"),
       ),
-      body: SingleChildScrollView(
-        child: Center(
-          child: Column(
-            children: [
-              SipForm(
-                calculateSIPWith: calculateMonthlySIP,
-                resetHandler: resetHanlder,
-                investmentFieldTitle: "Monthly Investment",
+      body: Stack(
+        children: [
+          SingleChildScrollView(
+            child: Center(
+              child: Column(
+                children: [
+                  SipForm(
+                    calculateSIPWith: calculateMonthlySIP,
+                    resetHandler: resetHanlder,
+                    investmentFieldTitle: "Monthly Investment",
+                  ),
+                  if (isSIPCalculationReady)
+                    SipMaturity(
+                        sipMaturityValue: sipMaturityValue.toString(),
+                        estimatedReturns: estimatedReturns.toString(),
+                        initialInvestmentAmount:
+                            initialInvestmentAmount.toString()),
+                  const SizedBox(
+                    width: double.infinity,
+                    height: 50,
+                  )
+                ],
               ),
+            ),
+          ),
+          Column(
+            children: [
+              const Spacer(),
               if (_bannerAd != null)
                 Align(
                   alignment: FractionalOffset.bottomCenter,
@@ -114,15 +132,9 @@ class _MonthlySipScreenState extends State<MonthlySipScreen> {
                     child: AdWidget(ad: _bannerAd!),
                   ),
                 ),
-              if (isSIPCalculationReady)
-                SipMaturity(
-                    sipMaturityValue: sipMaturityValue.toString(),
-                    estimatedReturns: estimatedReturns.toString(),
-                    initialInvestmentAmount:
-                        initialInvestmentAmount.toString()),
             ],
-          ),
-        ),
+          )
+        ],
       ),
     );
   }
