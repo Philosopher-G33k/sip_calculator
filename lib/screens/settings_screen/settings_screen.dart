@@ -13,11 +13,14 @@ class SettingsScreen extends StatefulWidget {
 class _SettingsScreenState extends State<SettingsScreen> {
   BannerAd? _bannerAd;
 
+  void shareWithFriends() {
+    print("Hello");
+  }
+
   @override
   void initState() {
     super.initState();
 
-    // TODO: Load a banner ad
     BannerAd(
       adUnitId: AdHelper.bannerAdUnitId,
       request: const AdRequest(),
@@ -43,29 +46,32 @@ class _SettingsScreenState extends State<SettingsScreen> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Column(mainAxisAlignment: MainAxisAlignment.start, children: const [
-            SectionHeader(
+          Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+            const SectionHeader(
               sectionTitle: "GENERAL",
             ),
-            Divider(),
-            NumberFormatCell(),
-            Divider(),
+            const Divider(),
+            const NumberFormatCell(),
+            const Divider(),
             GeneralCell(
+              tapHandler: shareWithFriends,
               title: "Clear History",
             ),
-            Divider(),
-            SectionHeader(
+            const Divider(),
+            const SectionHeader(
               sectionTitle: "SYSTEM",
             ),
-            Divider(),
+            const Divider(),
             GeneralCell(
+              tapHandler: shareWithFriends,
               title: "Tell a Friend",
             ),
-            Divider(),
+            const Divider(),
             GeneralCell(
+              tapHandler: shareWithFriends,
               title: "Rate This App",
             ),
-            Divider(),
+            const Divider(),
           ]),
           if (_bannerAd != null)
             Align(
@@ -145,7 +151,9 @@ class NumberFormatCell extends StatelessWidget {
 
 class GeneralCell extends StatelessWidget {
   final String title;
+  final Function tapHandler;
   const GeneralCell({
+    required this.tapHandler,
     required this.title,
     super.key,
   });
@@ -153,7 +161,7 @@ class GeneralCell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () => tapHandler(),
       child: Row(
         children: [
           Padding(
