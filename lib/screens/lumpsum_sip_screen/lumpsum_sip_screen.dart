@@ -95,15 +95,34 @@ class _LumpsumSipScreenState extends State<LumpsumSipScreen> {
       appBar: AppBar(
         title: const Text("Lumpsum SIP Calculator"),
       ),
-      body: SingleChildScrollView(
-        child: Center(
-          child: Column(
-            children: [
-              SipForm(
-                calculateSIPWith: calculateLumpSumSIP,
-                resetHandler: resetHanlder,
-                investmentFieldTitle: "Lumpsum Investment",
+      body: Stack(
+        children: [
+          SingleChildScrollView(
+            child: Center(
+              child: Column(
+                children: [
+                  SipForm(
+                    calculateSIPWith: calculateLumpSumSIP,
+                    resetHandler: resetHanlder,
+                    investmentFieldTitle: "Lumpsum Investment",
+                  ),
+                  if (isSIPCalculationReady)
+                    SipMaturity(
+                        sipMaturityValue: sipMaturityValue.toString(),
+                        estimatedReturns: estimatedReturns.toString(),
+                        initialInvestmentAmount:
+                            initialInvestmentAmount.toString()),
+                  const SizedBox(
+                    width: double.infinity,
+                    height: 50,
+                  )
+                ],
               ),
+            ),
+          ),
+          Column(
+            children: [
+              const Spacer(),
               if (_bannerAd != null)
                 Align(
                   alignment: FractionalOffset.bottomCenter,
@@ -114,15 +133,9 @@ class _LumpsumSipScreenState extends State<LumpsumSipScreen> {
                     child: AdWidget(ad: _bannerAd!),
                   ),
                 ),
-              if (isSIPCalculationReady)
-                SipMaturity(
-                    sipMaturityValue: sipMaturityValue.toString(),
-                    estimatedReturns: estimatedReturns.toString(),
-                    initialInvestmentAmount:
-                        initialInvestmentAmount.toString()),
             ],
-          ),
-        ),
+          )
+        ],
       ),
     );
   }
