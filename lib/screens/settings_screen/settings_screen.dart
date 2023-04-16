@@ -109,7 +109,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   void rateThisApp() async {
     if (await _inAppReview.isAvailable()) {
-      _inAppReview.openStoreListing();
+      _inAppReview.openStoreListing(appStoreId: "6447810570");
     }
   }
 
