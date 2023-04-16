@@ -53,7 +53,7 @@ class _LandingScreenState extends State<LandingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Finance Calculator"),
+        title: const Text("SIP Calculator"),
         actions: [
           IconButton(
             icon: const Icon(Icons.settings),
