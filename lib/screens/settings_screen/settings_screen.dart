@@ -17,6 +17,78 @@ class SettingsScreen extends StatefulWidget {
 class _SettingsScreenState extends State<SettingsScreen> {
   BannerAd? _bannerAd;
   final InAppReview _inAppReview = InAppReview.instance;
+  var _selectedOption = Utils.locale;
+
+  void _showModalSheet() {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          padding: EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Row(
+                children: const [
+                  Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text(
+                      "Number Format",
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        fontStyle: FontStyle.normal,
+                      ),
+                    ),
+                  ),
+                  Spacer(),
+                ],
+              ),
+              RadioListTile(
+                title: Text(Utils()
+                    .formatNumbers(number: 1234567.89, customLocale: "en-IN")),
+                value: Utils().availableLocales[0],
+                groupValue: _selectedOption,
+                onChanged: (value) {
+                  setState(() {
+                    _selectedOption = value.toString();
+                  });
+                },
+              ),
+              RadioListTile(
+                title: Text(Utils()
+                    .formatNumbers(customLocale: "en-US", number: 1234567.89)),
+                value: Utils().availableLocales[1],
+                groupValue: _selectedOption,
+                onChanged: (value) {
+                  setState(() {
+                    _selectedOption = value.toString();
+                  });
+                },
+              ),
+              RadioListTile(
+                title: Text(Utils()
+                    .formatNumbers(number: 1234567.89, customLocale: "nl-NL")),
+                value: Utils().availableLocales[2],
+                groupValue: _selectedOption,
+                onChanged: (value) {
+                  setState(() {
+                    _selectedOption = value.toString();
+                  });
+                },
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: const Text('Close'),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
 
   void rateThisApp() async {
     if (await _inAppReview.isAvailable()) {
@@ -64,7 +136,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               sectionTitle: "GENERAL",
             ),
             const Divider(),
-            NumberFormatCell(tapHandler: () {}),
+            NumberFormatCell(tapHandler: _showModalSheet),
             const Divider(),
             GeneralCell(
               tapHandler: shareWithFriends,
@@ -136,7 +208,7 @@ class NumberFormatCell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => tapHandler("en-IN"),
+      onTap: () => tapHandler(),
       child: Row(
         children: [
           const Padding(
@@ -147,7 +219,7 @@ class NumberFormatCell extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(top: 8, bottom: 8, right: 8),
             child: Text(
-              Utils().formatNumbers(1234567.89),
+              Utils().formatNumbers(number: 1234567.89),
               style: const TextStyle(color: Colors.black26),
             ),
           ),

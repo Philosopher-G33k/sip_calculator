@@ -48,8 +48,12 @@ class Utils {
     prefs.setInt('counter', 0);
   }
 
-  String formatNumbers(double number) {
-    var formatter = NumberFormat.simpleCurrency(locale: locale);
+  String formatNumbers({double number = 1234567.89, String customLocale = ""}) {
+    var tempLocale = locale;
+    if (customLocale != "") {
+      tempLocale = customLocale;
+    }
+    var formatter = NumberFormat.simpleCurrency(locale: tempLocale);
     String formattedPrice = formatter.format(number).substring(1);
     return formattedPrice;
   }
