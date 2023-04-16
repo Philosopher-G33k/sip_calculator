@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.ishanmalviya.sip_calculator">
+    package="com.ishanmalviya.sipcalculator">
    <application
         android:label="SIP Calculator"
         android:name="${applicationName}"
