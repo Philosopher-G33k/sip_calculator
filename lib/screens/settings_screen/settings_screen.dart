@@ -64,7 +64,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               sectionTitle: "GENERAL",
             ),
             const Divider(),
-            NumberFormatCell(tapHandler: Utils().formatNumbers),
+            NumberFormatCell(tapHandler: () {}),
             const Divider(),
             GeneralCell(
               tapHandler: shareWithFriends,
@@ -138,20 +138,20 @@ class NumberFormatCell extends StatelessWidget {
     return InkWell(
       onTap: () => tapHandler("en-IN"),
       child: Row(
-        children: const [
-          Padding(
+        children: [
+          const Padding(
             padding: EdgeInsets.all(8.0),
             child: Text("Number Format"),
           ),
-          Spacer(),
+          const Spacer(),
           Padding(
-            padding: EdgeInsets.only(top: 8, bottom: 8, right: 8),
+            padding: const EdgeInsets.only(top: 8, bottom: 8, right: 8),
             child: Text(
-              "123456789",
-              style: TextStyle(color: Colors.black26),
+              Utils().formatNumbers(1234567.89),
+              style: const TextStyle(color: Colors.black26),
             ),
           ),
-          Padding(
+          const Padding(
             padding: EdgeInsets.only(top: 8, bottom: 8, right: 8),
             child: Text(
               ">",

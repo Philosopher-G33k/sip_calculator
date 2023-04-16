@@ -9,6 +9,8 @@ class Utils {
 
   final availableLocales = ["en-IN", "en-US", "nl-NL"];
 
+  static String locale = "en-IN";
+
   factory Utils() {
     return _singleton;
   }
@@ -46,9 +48,9 @@ class Utils {
     prefs.setInt('counter', 0);
   }
 
-  String formatNumbers(String locale) {
-    var formatter = NumberFormat.simpleCurrency(locale: 'fr-FR');
-    String formattedPrice = formatter.format(1234567.89).substring(1);
+  String formatNumbers(double number) {
+    var formatter = NumberFormat.simpleCurrency(locale: locale);
+    String formattedPrice = formatter.format(number).substring(1);
     return formattedPrice;
   }
 }
