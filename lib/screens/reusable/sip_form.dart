@@ -154,6 +154,7 @@ class _SipFormState extends State<SipForm> {
                     child: Padding(
                       padding: const EdgeInsets.only(left: 8, right: 8, top: 8),
                       child: TextField(
+                        textInputAction: TextInputAction.next,
                         controller: monthlyInvestmentController,
                         keyboardType: TextInputType.number,
                         inputFormatters: [
@@ -196,6 +197,7 @@ class _SipFormState extends State<SipForm> {
                     child: Padding(
                       padding: const EdgeInsets.only(left: 8, right: 8, top: 8),
                       child: TextField(
+                        textInputAction: TextInputAction.next,
                         controller: expectedReturnController,
                         keyboardType: TextInputType.number,
                         style: const TextStyle(
@@ -235,6 +237,10 @@ class _SipFormState extends State<SipForm> {
                     child: Padding(
                       padding: const EdgeInsets.only(left: 8, right: 8, top: 8),
                       child: TextField(
+                        textInputAction: TextInputAction.done,
+                        onSubmitted: (value) {
+                          validateSipForm();
+                        },
                         controller: periodController,
                         keyboardType: TextInputType.number,
                         inputFormatters: [
