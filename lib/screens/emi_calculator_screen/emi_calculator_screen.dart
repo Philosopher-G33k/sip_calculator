@@ -119,9 +119,9 @@ class _EMICalculatorScreenState extends State<EMICalculatorScreen> {
                   ),
                   if (isSIPCalculationReady)
                     SipMaturity(
-                      sipMaturityValue: monthlyEMI.toString(),
-                      estimatedReturns: totalAmount.toString(),
-                      initialInvestmentAmount: interestPaid.toString(),
+                      sipMaturityValue: monthlyEMI,
+                      estimatedReturns: totalAmount,
+                      initialInvestmentAmount: interestPaid,
                       scrollForFocus: scrollToBottom,
                       title1Text: "Your monthly EMI's would be",
                       title2Text: "Interest Paid",

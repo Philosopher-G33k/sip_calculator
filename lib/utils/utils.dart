@@ -9,7 +9,7 @@ class Utils {
 
   final availableLocales = ["en-IN", "en-US", "nl-NL"];
 
-  static String locale = "nl-NL";
+  static String locale = "en-IN";
 
   factory Utils() {
     return _singleton;
@@ -19,7 +19,7 @@ class Utils {
 
   Future<String> getDefaultLocale() {
     final locale = _prefs.then((SharedPreferences prefs) {
-      return prefs.getString('locale') ?? "nl-NL";
+      return prefs.getString('locale') ?? "en-IN";
     });
     return locale;
   }
@@ -47,6 +47,12 @@ class Utils {
   Future<void> resetCounter() async {
     final SharedPreferences prefs = await _prefs;
     prefs.setInt('counter', 0);
+  }
+
+  String formatNumbersInt({int number = 0}) {
+    var formatter = NumberFormat.simpleCurrency(locale: locale);
+    String formattedPrice = formatter.format(number).substring(1);
+    return formattedPrice;
   }
 
   String formatNumbers({double number = 1234567.89, String customLocale = ""}) {

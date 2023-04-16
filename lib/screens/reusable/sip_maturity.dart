@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:sip_calculator/utils/utils.dart';
 
 import '../reusable/pie_chat.dart';
 
 class SipMaturity extends StatefulWidget {
-  final String sipMaturityValue;
-  final String initialInvestmentAmount;
-  final String estimatedReturns;
+  final int sipMaturityValue;
+  final int initialInvestmentAmount;
+  final int estimatedReturns;
 
   final String title1Text;
   final String title2Text;
@@ -60,7 +61,7 @@ class _SipMaturityState extends State<SipMaturity> {
               padding: const EdgeInsets.only(
                   top: 10, bottom: 20, left: 16, right: 16),
               child: Text(
-                widget.sipMaturityValue,
+                Utils().formatNumbersInt(number: widget.sipMaturityValue),
                 style: const TextStyle(
                     fontSize: 17,
                     fontWeight: FontWeight.bold,
@@ -84,7 +85,8 @@ class _SipMaturityState extends State<SipMaturity> {
                           ),
                         ),
                         Text(
-                          widget.initialInvestmentAmount,
+                          Utils().formatNumbersInt(
+                              number: widget.initialInvestmentAmount),
                           style: const TextStyle(fontSize: 15),
                         ),
                       ],
@@ -103,7 +105,8 @@ class _SipMaturityState extends State<SipMaturity> {
                           ),
                         ),
                         Text(
-                          widget.estimatedReturns,
+                          Utils().formatNumbersInt(
+                              number: widget.estimatedReturns),
                           style: const TextStyle(fontSize: 15),
                         ),
                       ],
@@ -113,10 +116,9 @@ class _SipMaturityState extends State<SipMaturity> {
               ),
             ),
             PieChartSample2(
-                estimatedReturns: int.parse(widget.estimatedReturns),
-                initialInvestmentAmount:
-                    int.parse(widget.initialInvestmentAmount),
-                sipMaturityValue: int.parse(widget.sipMaturityValue)),
+                estimatedReturns: widget.estimatedReturns,
+                initialInvestmentAmount: widget.initialInvestmentAmount,
+                sipMaturityValue: widget.sipMaturityValue),
           ],
         ),
       ),

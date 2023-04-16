@@ -117,10 +117,9 @@ class _TargetSipScreenState extends State<TargetSipScreen> {
                   ),
                   if (isSIPCalculationReady)
                     SipMaturity(
-                      sipMaturityValue: sipMaturityValue.toString(),
-                      estimatedReturns: estimatedReturns.toString(),
-                      initialInvestmentAmount:
-                          initialInvestmentAmount.toString(),
+                      sipMaturityValue: sipMaturityValue,
+                      estimatedReturns: estimatedReturns,
+                      initialInvestmentAmount: initialInvestmentAmount,
                       scrollForFocus: scrollToBottom,
                       title1Text:
                           "Your monthly investments to meet your target would be",

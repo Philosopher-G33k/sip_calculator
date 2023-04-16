@@ -115,10 +115,9 @@ class _MonthlySipScreenState extends State<MonthlySipScreen> {
                   ),
                   if (isSIPCalculationReady)
                     SipMaturity(
-                      sipMaturityValue: sipMaturityValue.toString(),
-                      estimatedReturns: estimatedReturns.toString(),
-                      initialInvestmentAmount:
-                          initialInvestmentAmount.toString(),
+                      sipMaturityValue: sipMaturityValue,
+                      estimatedReturns: estimatedReturns,
+                      initialInvestmentAmount: initialInvestmentAmount,
                       scrollForFocus: scrollToBottom,
                     ),
                   const SizedBox(
