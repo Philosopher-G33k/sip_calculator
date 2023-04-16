@@ -9,7 +9,7 @@ class Utils {
 
   final availableLocales = ["en-IN", "en-US", "nl-NL"];
 
-  static String locale = "en-IN";
+  static String locale = "nl-NL";
 
   factory Utils() {
     return _singleton;
@@ -27,6 +27,7 @@ class Utils {
   Future<void> setDefaultLocale(String locale) async {
     final SharedPreferences prefs = await _prefs;
     prefs.setString('locale', locale);
+    Utils.locale = locale;
   }
 
   Future<void> incrementCounter() async {

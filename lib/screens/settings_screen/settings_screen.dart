@@ -18,76 +18,93 @@ class _SettingsScreenState extends State<SettingsScreen> {
   BannerAd? _bannerAd;
   final InAppReview _inAppReview = InAppReview.instance;
   var _selectedOption = Utils.locale;
+  var localChanged = false;
 
-  void _showModalSheet() {
+  void handleLocaleChanged(String value) {
+    setState(() {
+      _selectedOption = value;
+      Utils().setDefaultLocale(_selectedOption);
+      localChanged = true;
+    });
+  }
+
+  void _showModalSheet({required Function handleLocaleChange}) {
     showModalBottomSheet(
-      context: context,
-      builder: (BuildContext context) {
-        return Container(
-          padding: EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Row(
-                children: const [
-                  Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Text(
-                      "Number Format",
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        fontStyle: FontStyle.normal,
-                      ),
+        context: context,
+        builder: (BuildContext context) {
+          return StatefulBuilder(
+            builder: (BuildContext context, StateSetter setState) {
+              return Container(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Row(
+                      children: const [
+                        Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Text(
+                            "Number Format",
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              fontStyle: FontStyle.normal,
+                            ),
+                          ),
+                        ),
+                        Spacer(),
+                      ],
                     ),
-                  ),
-                  Spacer(),
-                ],
-              ),
-              RadioListTile(
-                title: Text(Utils()
-                    .formatNumbers(number: 1234567.89, customLocale: "en-IN")),
-                value: Utils().availableLocales[0],
-                groupValue: _selectedOption,
-                onChanged: (value) {
-                  setState(() {
-                    _selectedOption = value.toString();
-                  });
-                },
-              ),
-              RadioListTile(
-                title: Text(Utils()
-                    .formatNumbers(customLocale: "en-US", number: 1234567.89)),
-                value: Utils().availableLocales[1],
-                groupValue: _selectedOption,
-                onChanged: (value) {
-                  setState(() {
-                    _selectedOption = value.toString();
-                  });
-                },
-              ),
-              RadioListTile(
-                title: Text(Utils()
-                    .formatNumbers(number: 1234567.89, customLocale: "nl-NL")),
-                value: Utils().availableLocales[2],
-                groupValue: _selectedOption,
-                onChanged: (value) {
-                  setState(() {
-                    _selectedOption = value.toString();
-                  });
-                },
-              ),
-              TextButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: const Text('Close'),
-              ),
-            ],
-          ),
-        );
-      },
-    );
+                    RadioListTile(
+                      title: Text(Utils().formatNumbers(
+                          number: 1234567.89, customLocale: "en-IN")),
+                      value: Utils().availableLocales[0],
+                      groupValue: _selectedOption,
+                      onChanged: (value) {
+                        setState(() {
+                          _selectedOption = value.toString();
+                        });
+                      },
+                    ),
+                    RadioListTile(
+                      title: Text(Utils().formatNumbers(
+                          customLocale: "en-US", number: 1234567.89)),
+                      value: Utils().availableLocales[1],
+                      groupValue: _selectedOption,
+                      onChanged: (value) {
+                        setState(() {
+                          setState(() {
+                            _selectedOption = value.toString();
+                          });
+                          //handleLocaleChange(value);
+                        });
+                      },
+                    ),
+                    RadioListTile(
+                      title: Text(Utils().formatNumbers(
+                          number: 1234567.89, customLocale: "nl-NL")),
+                      value: Utils().availableLocales[2],
+                      groupValue: _selectedOption,
+                      onChanged: (value) {
+                        setState(() {
+                          _selectedOption = value.toString();
+                        });
+                        //handleLocaleChange(value);
+                      },
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                        handleLocaleChange(_selectedOption);
+                      },
+                      child: const Text('Close'),
+                    ),
+                  ],
+                ),
+              );
+            },
+          );
+        });
   }
 
   void rateThisApp() async {
@@ -136,7 +153,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
               sectionTitle: "GENERAL",
             ),
             const Divider(),
-            NumberFormatCell(tapHandler: _showModalSheet),
+            NumberFormatCell(
+              tapHandler: _showModalSheet,
+              valueChangeHandler: handleLocaleChanged,
+            ),
             const Divider(),
             GeneralCell(
               tapHandler: shareWithFriends,
@@ -200,7 +220,9 @@ class SectionHeader extends StatelessWidget {
 
 class NumberFormatCell extends StatelessWidget {
   final Function tapHandler;
+  final Function valueChangeHandler;
   const NumberFormatCell({
+    required this.valueChangeHandler,
     required this.tapHandler,
     super.key,
   });
@@ -208,7 +230,9 @@ class NumberFormatCell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => tapHandler(),
+      onTap: () {
+        tapHandler(handleLocaleChange: valueChangeHandler);
+      },
       child: Row(
         children: [
           const Padding(
