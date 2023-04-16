@@ -53,7 +53,7 @@ class _SipFormState extends State<SipForm> {
 
   void validateSipForm() {
     bool state = true;
-
+    FocusManager.instance.primaryFocus?.unfocus();
     if (monthlyInvestmentController.text == "") {
       setState(() {
         monthlyInvestmentError = true;
