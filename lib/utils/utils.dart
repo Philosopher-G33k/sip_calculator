@@ -19,7 +19,7 @@ class Utils {
 
   Future<String> getDefaultLocale() {
     final locale = _prefs.then((SharedPreferences prefs) {
-      return prefs.getString('locale') ?? "en-IN";
+      return prefs.getString('locale') ?? "nl-NL";
     });
     return locale;
   }

@@ -7,6 +7,7 @@ import 'package:sip_calculator/screens/settings_screen/settings_screen.dart';
 import 'package:sip_calculator/screens/target_sip_screen/target_sip_screen.dart';
 
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:sip_calculator/utils/utils.dart';
 import '../../utils/ad_helper.dart';
 // ignore: implementation_imports
 
@@ -27,6 +28,8 @@ class _LandingScreenState extends State<LandingScreen> {
   @override
   void initState() {
     super.initState();
+
+    Utils().getDefaultLocale().then((value) => Utils.locale = value);
 
     BannerAd(
       adUnitId: AdHelper.bannerAdUnitId,
