@@ -158,11 +158,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
               valueChangeHandler: handleLocaleChanged,
             ),
             const Divider(),
-            GeneralCell(
-              tapHandler: shareWithFriends,
-              title: "Clear History",
-            ),
-            const Divider(),
+            // GeneralCell(
+            //   tapHandler: shareWithFriends,
+            //   title: "Clear History",
+            // ),
+            // const Divider(),
             const SectionHeader(
               sectionTitle: "SYSTEM",
             ),
