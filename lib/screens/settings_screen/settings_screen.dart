@@ -46,7 +46,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           child: Text(
                             "Number Format",
                             style: TextStyle(
-                              fontSize: 18,
+                              fontSize: 16,
                               fontWeight: FontWeight.bold,
                               fontStyle: FontStyle.normal,
                             ),
@@ -209,7 +209,10 @@ class SectionHeader extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Text(
             sectionTitle,
-            style: const TextStyle(color: Colors.black26),
+            style: const TextStyle(
+                color: Colors.black26,
+                fontSize: 16,
+                fontWeight: FontWeight.normal),
           ),
         ),
         const Spacer(),
@@ -237,7 +240,13 @@ class NumberFormatCell extends StatelessWidget {
         children: [
           const Padding(
             padding: EdgeInsets.all(8.0),
-            child: Text("Number Format"),
+            child: Text(
+              "Number Format",
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.normal,
+              ),
+            ),
           ),
           const Spacer(),
           Padding(
@@ -277,7 +286,13 @@ class GeneralCell extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text(title),
+            child: Text(
+              title,
+              style: const TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.normal,
+              ),
+            ),
           ),
           const Spacer(),
         ],

@@ -109,14 +109,15 @@ class _SipFormState extends State<SipForm> {
         periodError = false;
       });
     }
-    if (state) {
-      setState(() {
-        isCalculated = true;
-      });
-    }
-    if (state) {
-      convertValuesAndCalculateSIP();
-    }
+
+    Future.delayed(const Duration(milliseconds: 500), () {
+      if (state) {
+        setState(() {
+          isCalculated = true;
+        });
+        convertValuesAndCalculateSIP();
+      }
+    });
   }
 
   @override
