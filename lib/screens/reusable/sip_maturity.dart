@@ -123,23 +123,14 @@ class _SipMaturityState extends State<SipMaturity> {
                 ],
               ),
             ),
-            widget.isEMICalculation
-                // If true we need to send the calculations too
-                ? PieChartSample2(
-                    estimatedReturns: widget.estimatedReturns,
-                    initialInvestmentAmount: widget.initialInvestmentAmount,
-                    sipMaturityValue: widget.sipMaturityValue,
-                    hint1Text: widget.hint1Text,
-                    hint2Text: widget.hint2Text,
-                    isEMICalculation: widget.isEMICalculation,
-                  )
-                : PieChartSample2(
-                    estimatedReturns: widget.estimatedReturns,
-                    initialInvestmentAmount: widget.initialInvestmentAmount,
-                    sipMaturityValue: widget.sipMaturityValue,
-                    hint1Text: widget.hint1Text,
-                    hint2Text: widget.hint2Text,
-                  ),
+            PieChartSample2(
+              estimatedReturns: widget.estimatedReturns,
+              initialInvestmentAmount: widget.initialInvestmentAmount,
+              sipMaturityValue: widget.sipMaturityValue,
+              hint1Text: widget.hint1Text,
+              hint2Text: widget.hint2Text,
+              isEMICalculation: widget.isEMICalculation,
+            ),
           ],
         ),
       ),
