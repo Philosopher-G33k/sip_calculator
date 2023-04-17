@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ishanmalviya.sipcalculator">
    <application
-        android:label="SIP_Calculator"
+        android:label="SIP Calculator"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
 
