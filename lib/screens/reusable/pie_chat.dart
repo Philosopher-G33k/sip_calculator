@@ -8,6 +8,7 @@ class PieChartSample2 extends StatefulWidget {
   final int estimatedReturns;
   final String hint1Text;
   final String hint2Text;
+  final bool isEMICalculation;
 
   const PieChartSample2(
       {required this.sipMaturityValue,
@@ -15,6 +16,7 @@ class PieChartSample2 extends StatefulWidget {
       required this.estimatedReturns,
       this.hint1Text = "Initial Investment",
       this.hint2Text = "Est. Returns",
+      this.isEMICalculation = false,
       super.key});
 
   @override
@@ -94,7 +96,10 @@ class PieChart2State extends State<PieChartSample2> {
         case 0:
           return PieChartSectionData(
             color: Colors.blue,
-            value: (initialInvestment / sipMaturityAmout) * 100,
+            value: widget.isEMICalculation
+                ? ((estimatedReturns - initialInvestment) / estimatedReturns) *
+                    100
+                : (initialInvestment / sipMaturityAmout) * 100,
             title: '',
             radius: radius,
             titleStyle: TextStyle(
@@ -107,7 +112,9 @@ class PieChart2State extends State<PieChartSample2> {
         case 1:
           return PieChartSectionData(
             color: Colors.yellow,
-            value: (estimatedReturns / sipMaturityAmout) * 100,
+            value: widget.isEMICalculation
+                ? (initialInvestment / estimatedReturns) * 100
+                : (estimatedReturns / sipMaturityAmout) * 100,
             title: '',
             radius: radius,
             titleStyle: TextStyle(

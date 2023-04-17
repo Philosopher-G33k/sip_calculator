@@ -15,6 +15,8 @@ class SipMaturity extends StatefulWidget {
   final String hint1Text;
   final String hint2Text;
 
+  final bool isEMICalculation;
+
   final Function scrollForFocus;
 
   const SipMaturity(
@@ -27,6 +29,7 @@ class SipMaturity extends StatefulWidget {
       this.title3Text = "Est. Returns",
       this.hint1Text = "Initial Investment",
       this.hint2Text = "Est. Returns",
+      this.isEMICalculation = false,
       super.key});
 
   @override
@@ -120,13 +123,23 @@ class _SipMaturityState extends State<SipMaturity> {
                 ],
               ),
             ),
-            PieChartSample2(
-              estimatedReturns: widget.estimatedReturns,
-              initialInvestmentAmount: widget.initialInvestmentAmount,
-              sipMaturityValue: widget.sipMaturityValue,
-              hint1Text: widget.hint1Text,
-              hint2Text: widget.hint2Text,
-            ),
+            widget.isEMICalculation
+                // If true we need to send the calculations too
+                ? PieChartSample2(
+                    estimatedReturns: widget.estimatedReturns,
+                    initialInvestmentAmount: widget.initialInvestmentAmount,
+                    sipMaturityValue: widget.sipMaturityValue,
+                    hint1Text: widget.hint1Text,
+                    hint2Text: widget.hint2Text,
+                    isEMICalculation: widget.isEMICalculation,
+                  )
+                : PieChartSample2(
+                    estimatedReturns: widget.estimatedReturns,
+                    initialInvestmentAmount: widget.initialInvestmentAmount,
+                    sipMaturityValue: widget.sipMaturityValue,
+                    hint1Text: widget.hint1Text,
+                    hint2Text: widget.hint2Text,
+                  ),
           ],
         ),
       ),
