@@ -126,6 +126,8 @@ class _EMICalculatorScreenState extends State<EMICalculatorScreen> {
                       title1Text: "Your monthly EMI's would be",
                       title2Text: "Interest Paid",
                       title3Text: "Total Amount",
+                      hint1Text: "Principle",
+                      hint2Text: "Interest",
                     ),
                   const SizedBox(
                     width: double.infinity,

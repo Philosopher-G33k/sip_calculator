@@ -6,11 +6,15 @@ class PieChartSample2 extends StatefulWidget {
   final int sipMaturityValue;
   final int initialInvestmentAmount;
   final int estimatedReturns;
+  final String hint1Text;
+  final String hint2Text;
 
   const PieChartSample2(
       {required this.sipMaturityValue,
       required this.initialInvestmentAmount,
       required this.estimatedReturns,
+      this.hint1Text = "Initial Investment",
+      this.hint2Text = "Est. Returns",
       super.key});
 
   @override
@@ -50,21 +54,21 @@ class PieChart2State extends State<PieChartSample2> {
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: const <Widget>[
+            children: <Widget>[
               Indicator(
                 color: Colors.blue,
-                text: 'Initial Investment',
+                text: widget.hint1Text,
                 isSquare: true,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 4,
               ),
               Indicator(
                 color: Colors.yellow,
-                text: 'Est. Returns',
+                text: widget.hint2Text,
                 isSquare: true,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 4,
               ),
             ],

@@ -12,6 +12,9 @@ class SipMaturity extends StatefulWidget {
   final String title2Text;
   final String title3Text;
 
+  final String hint1Text;
+  final String hint2Text;
+
   final Function scrollForFocus;
 
   const SipMaturity(
@@ -22,6 +25,8 @@ class SipMaturity extends StatefulWidget {
       this.title1Text = "The total value of your investment will be",
       this.title2Text = "Invested Amount",
       this.title3Text = "Est. Returns",
+      this.hint1Text = "Initial Investment",
+      this.hint2Text = "Est. Returns",
       super.key});
 
   @override
@@ -116,9 +121,12 @@ class _SipMaturityState extends State<SipMaturity> {
               ),
             ),
             PieChartSample2(
-                estimatedReturns: widget.estimatedReturns,
-                initialInvestmentAmount: widget.initialInvestmentAmount,
-                sipMaturityValue: widget.sipMaturityValue),
+              estimatedReturns: widget.estimatedReturns,
+              initialInvestmentAmount: widget.initialInvestmentAmount,
+              sipMaturityValue: widget.sipMaturityValue,
+              hint1Text: widget.hint1Text,
+              hint2Text: widget.hint2Text,
+            ),
           ],
         ),
       ),
