@@ -50,8 +50,8 @@ class _LumpsumSipScreenState extends State<LumpsumSipScreen> {
         (lumpsumInvestment * (pow(1 + convertedPercentage, convertedDuration)));
 
     setState(() {
-      this.sipMaturityValue = sipMaturityValue.toInt();
-      initialInvestmentAmount = (lumpsumInvestment).toInt();
+      this.sipMaturityValue = sipMaturityValue.ceil();
+      initialInvestmentAmount = (lumpsumInvestment).ceil();
       estimatedReturns = this.sipMaturityValue - initialInvestmentAmount;
       isSIPCalculationReady = true;
     });

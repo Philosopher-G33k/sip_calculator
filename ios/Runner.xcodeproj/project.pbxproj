@@ -377,7 +377,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development: Ishan r Malviya (L8N274229S)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1704230257;
+				CURRENT_PROJECT_VERSION = 260420231705;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = QWQ72ZUKFL;
 				ENABLE_BITCODE = NO;
@@ -518,7 +518,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development: Ishan r Malviya (L8N274229S)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1704230257;
+				CURRENT_PROJECT_VERSION = 260420231705;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = QWQ72ZUKFL;
 				ENABLE_BITCODE = NO;
@@ -553,7 +553,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Distribution: Ishan r Malviya (QWQ72ZUKFL)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1704230257;
+				CURRENT_PROJECT_VERSION = 260420231705;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = QWQ72ZUKFL;
 				ENABLE_BITCODE = NO;
