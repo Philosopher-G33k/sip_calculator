@@ -68,7 +68,7 @@ class Utils {
 
   String getStoreURL() {
     if (Platform.isAndroid) {
-      return 'ca-app-pub-3940256099942544/6300978111';
+      return 'https://play.google.com/store/apps/details?id=com.ishanmalviya.sipcalculator';
     } else if (Platform.isIOS) {
       return 'https://apps.apple.com/us/app/sip-calculator/id6447810570';
     } else {
