@@ -116,7 +116,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   void shareWithFriends() {
     var url = Utils().getStoreURL();
     Share.share('check out this new amazing SIP Calculator App $url',
-        subject: 'Look what I made!');
+        subject: 'Share the app with friends and family!');
   }
 
   @override
