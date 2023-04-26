@@ -114,8 +114,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   void shareWithFriends() {
-    print("Hello");
-    Share.share('check out my website https://example.com',
+    var url = Utils().getStoreURL();
+    Share.share('check out this new amazing SIP Calculator App $url',
         subject: 'Look what I made!');
   }
 
@@ -134,7 +134,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
           });
         },
         onAdFailedToLoad: (ad, err) {
-          print('Failed to load a banner ad: ${err.message}');
           ad.dispose();
         },
       ),

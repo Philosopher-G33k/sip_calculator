@@ -42,7 +42,6 @@ class _LandingScreenState extends State<LandingScreen> {
           });
         },
         onAdFailedToLoad: (ad, err) {
-          print('Failed to load a banner ad: ${err.message}');
           ad.dispose();
         },
       ),

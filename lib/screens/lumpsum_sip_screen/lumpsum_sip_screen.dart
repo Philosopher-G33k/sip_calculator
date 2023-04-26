@@ -82,7 +82,6 @@ class _LumpsumSipScreenState extends State<LumpsumSipScreen> {
           });
         },
         onAdFailedToLoad: (ad, err) {
-          print('Failed to load a banner ad: ${err.message}');
           ad.dispose();
         },
       ),

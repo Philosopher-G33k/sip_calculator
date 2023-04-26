@@ -90,7 +90,6 @@ class _TargetSipScreenState extends State<TargetSipScreen> {
           });
         },
         onAdFailedToLoad: (ad, err) {
-          print('Failed to load a banner ad: ${err.message}');
           ad.dispose();
         },
       ),

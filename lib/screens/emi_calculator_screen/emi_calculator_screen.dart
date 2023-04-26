@@ -84,7 +84,6 @@ class _EMICalculatorScreenState extends State<EMICalculatorScreen> {
           });
         },
         onAdFailedToLoad: (ad, err) {
-          print('Failed to load a banner ad: ${err.message}');
           ad.dispose();
         },
       ),

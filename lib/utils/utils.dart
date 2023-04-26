@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:intl/intl.dart';
@@ -63,5 +64,15 @@ class Utils {
     var formatter = NumberFormat.simpleCurrency(locale: tempLocale);
     String formattedPrice = formatter.format(number).substring(1);
     return formattedPrice;
+  }
+
+  String getStoreURL() {
+    if (Platform.isAndroid) {
+      return 'ca-app-pub-3940256099942544/6300978111';
+    } else if (Platform.isIOS) {
+      return 'https://apps.apple.com/us/app/sip-calculator/id6447810570';
+    } else {
+      throw UnsupportedError('Unsupported platform');
+    }
   }
 }
