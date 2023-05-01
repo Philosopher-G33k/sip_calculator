@@ -114,8 +114,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   void shareWithFriends() {
-    var url = Utils().getStoreURL();
-    Share.share('check out this new amazing SIP Calculator App $url',
+    var url_android =
+        'https://play.google.com/store/apps/details?id=com.ishanmalviya.sipcalculator';
+    var url_iOS = 'https://apps.apple.com/us/app/sip-calculator/id6447810570';
+    Share.share(
+        'check out this new amazing SIP Calculator App. \n Android: $url_android \n iOS: $url_iOS',
         subject: 'Share the app with friends and family!');
   }
 
