@@ -1,15 +1,14 @@
-// ignore: implementation_imports
 import 'package:flutter/material.dart';
 import 'package:sip_calculator/screens/emi_calculator_screen/emi_calculator_screen.dart';
 import 'package:sip_calculator/screens/lumpsum_sip_screen/lumpsum_sip_screen.dart';
 import 'package:sip_calculator/screens/monthly_sip_screen/monthly_sip_screen.dart';
 import 'package:sip_calculator/screens/settings_screen/settings_screen.dart';
+import 'package:sip_calculator/screens/step_up_sip_screen/step_up_sip_screen.dart';
+import 'package:sip_calculator/screens/swp_screen/swp_screen.dart';
 import 'package:sip_calculator/screens/target_sip_screen/target_sip_screen.dart';
-
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:sip_calculator/utils/utils.dart';
 import '../../utils/ad_helper.dart';
-// ignore: implementation_imports
 
 class LandingScreen extends StatefulWidget {
   const LandingScreen({super.key});
@@ -21,170 +20,168 @@ class LandingScreen extends StatefulWidget {
 class _LandingScreenState extends State<LandingScreen> {
   BannerAd? _bannerAd;
 
-  Future<InitializationStatus> _initGoogleMobileAds() {
-    return MobileAds.instance.initialize();
-  }
-
   @override
   void initState() {
     super.initState();
-
+    MobileAds.instance.initialize();
     Utils().getDefaultLocale().then((value) => Utils.locale = value);
-
     BannerAd(
       adUnitId: AdHelper.bannerAdUnitId,
       request: const AdRequest(),
       size: AdSize.banner,
       listener: BannerAdListener(
-        onAdLoaded: (ad) {
-          setState(() {
-            _bannerAd = ad as BannerAd;
-          });
-        },
-        onAdFailedToLoad: (ad, err) {
-          ad.dispose();
-        },
+        onAdLoaded: (ad) => setState(() => _bannerAd = ad as BannerAd),
+        onAdFailedToLoad: (ad, err) => ad.dispose(),
       ),
     ).load();
+  }
+
+  @override
+  void dispose() {
+    _bannerAd?.dispose();
+    super.dispose();
+  }
+
+  void _navigate(Widget screen) {
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (_) => screen),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("SIP Calculator"),
+        title: const Text('SIP Calculator'),
         actions: [
           IconButton(
-            icon: const Icon(Icons.settings),
-            onPressed: () {
-              // Do something when the button is pressed
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => const SettingsScreen(),
-                ),
-              );
-            },
+            icon: const Icon(Icons.settings_outlined),
+            tooltip: 'Settings',
+            onPressed: () => _navigate(const SettingsScreen()),
           ),
         ],
       ),
-      body: Column(children: [
-        Expanded(
-          flex: 1,
-          child: Container(
-            padding: const EdgeInsets.all(10),
-            child: GridView.count(
-              crossAxisCount: 2,
-              children: [
-                CalculatorOptionCell(
-                  assetName: "monthly_sip.png",
-                  title: "Monthly SIP",
-                  tapHandler: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => const MonthlySipScreen(),
-                      ),
-                    );
-                  },
-                ),
-                CalculatorOptionCell(
-                  assetName: "lumpsum_sip.png",
-                  title: "Lumpsum SIP",
-                  tapHandler: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => const LumpsumSipScreen(),
-                      ),
-                    );
-                  },
-                ),
-                CalculatorOptionCell(
-                  assetName: "target_sip.png",
-                  title: "Target SIP",
-                  tapHandler: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => const TargetSipScreen(),
-                      ),
-                    );
-                  },
-                ),
-                CalculatorOptionCell(
-                  assetName: "emi_calculator.png",
-                  title: "EMI Calculator",
-                  tapHandler: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => const EMICalculatorScreen(),
-                      ),
-                    );
-                  },
-                ),
-              ],
+      body: Column(
+        children: [
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(20, 24, 20, 0),
+              child: GridView.count(
+                crossAxisCount: 2,
+                mainAxisSpacing: 18,
+                crossAxisSpacing: 18,
+                children: [
+                  _CalcCard(
+                    assetName: 'monthly_sip.png',
+                    title: 'Monthly SIP',
+                    onTap: () => _navigate(const MonthlySipScreen()),
+                  ),
+                  _CalcCard(
+                    assetName: 'lumpsum_sip.png',
+                    title: 'Lumpsum SIP',
+                    onTap: () => _navigate(const LumpsumSipScreen()),
+                  ),
+                  _CalcCard(
+                    assetName: 'target_sip.png',
+                    title: 'Target SIP',
+                    onTap: () => _navigate(const TargetSipScreen()),
+                  ),
+                  _CalcCard(
+                    assetName: 'emi_calculator.png',
+                    title: 'EMI Calculator',
+                    onTap: () => _navigate(const EMICalculatorScreen()),
+                  ),
+                  _CalcCard(
+                    assetName: 'step_up_sip.png',
+                    fallbackIcon: Icons.trending_up_rounded,
+                    title: 'Step-Up SIP',
+                    onTap: () => _navigate(const StepUpSipScreen()),
+                  ),
+                  _CalcCard(
+                    assetName: 'swp_calculator.png',
+                    fallbackIcon: Icons.savings_outlined,
+                    title: 'SWP',
+                    onTap: () => _navigate(const SwpScreen()),
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
-        if (_bannerAd != null)
-          Align(
-            alignment: Alignment.topCenter,
-            child: Container(
+          if (_bannerAd != null)
+            SizedBox(
               width: _bannerAd!.size.width.toDouble(),
               height: _bannerAd!.size.height.toDouble(),
               child: AdWidget(ad: _bannerAd!),
             ),
-          ),
-      ]),
+        ],
+      ),
     );
   }
 }
 
-class CalculatorOptionCell extends StatelessWidget {
+class _CalcCard extends StatelessWidget {
   final String title;
   final String assetName;
-  final Function tapHandler;
-  const CalculatorOptionCell({
+  final VoidCallback onTap;
+
+  /// Shown when [assetName] PNG has not been added to assets yet.
+  final IconData? fallbackIcon;
+
+  const _CalcCard({
     required this.title,
-    required this.tapHandler,
     required this.assetName,
-    super.key,
+    required this.onTap,
+    this.fallbackIcon,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      margin: const EdgeInsets.all(20),
-      shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(10))),
-      elevation: 20,
-      child: InkWell(
-        onTap: () {
-          tapHandler();
-        },
+    const blue = Color(0xFF1565C0);
+
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(20),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.07),
+              blurRadius: 18,
+              offset: const Offset(0, 6),
+            ),
+          ],
+        ),
+        clipBehavior: Clip.antiAlias,
         child: Column(
           children: [
             Expanded(
-                flex: 2,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Image.asset("assets/icons/$assetName"),
-                )),
-            Expanded(
-              flex: 1,
-              child: Container(
-                decoration: const BoxDecoration(
-                  color: Color.fromRGBO(33, 150, 243, 1),
-                  borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(10),
-                      bottomRight: Radius.circular(10)),
+              child: Padding(
+                padding: const EdgeInsets.all(22),
+                child: Image.asset(
+                  'assets/icons/$assetName',
+                  fit: BoxFit.contain,
+                  errorBuilder: (_, __, ___) => Icon(
+                    fallbackIcon ?? Icons.calculate_outlined,
+                    size: 64,
+                    color: Colors.black87,
+                  ),
                 ),
-                width: double.infinity,
-                child: Center(
-                    child: Text(
-                  title,
-                  style: const TextStyle(
-                      color: Colors.white,
-                      fontStyle: FontStyle.normal,
-                      fontWeight: FontWeight.bold),
-                )),
+              ),
+            ),
+            Container(
+              width: double.infinity,
+              color: blue,
+              padding: const EdgeInsets.symmetric(vertical: 13),
+              child: Text(
+                title,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w700,
+                  fontSize: 13,
+                  letterSpacing: 0.2,
+                ),
               ),
             ),
           ],

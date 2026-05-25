@@ -88,7 +88,6 @@ class _MonthlySipScreenState extends State<MonthlySipScreen> {
           });
         },
         onAdFailedToLoad: (ad, err) {
-          print('Failed to load a banner ad: ${err.message}');
           ad.dispose();
         },
       ),
