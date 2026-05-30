@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../reusable/sip_form.dart';
 import '../reusable/sip_maturity.dart';
 import '../../utils/utils.dart';
+import '../../utils/calculation_history.dart';
 
 import 'package:in_app_review/in_app_review.dart';
 
@@ -56,6 +57,20 @@ class _MonthlySipScreenState extends State<MonthlySipScreen> {
       estimatedReturns = this.sipMaturityValue - initialInvestmentAmount;
       isSIPCalculationReady = true;
     });
+    await CalculationHistoryStore.instance.save(
+      calculatorType: 'monthlySIP',
+      inputs: {
+        'principal': monthlyInvestment,
+        'years': duration,
+        'rate': returnPercentage,
+      },
+      result: {
+        'maturity': sipMaturityValue.ceil(),
+        'invested': initialInvestmentAmount,
+        'returns': estimatedReturns,
+      },
+      locale: Utils.locale,
+    );
     int counter = await Utils().readCounter();
     if (counter >= 5) {
       // Show the prompt

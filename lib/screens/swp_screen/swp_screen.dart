@@ -7,6 +7,7 @@ import 'package:in_app_review/in_app_review.dart';
 
 import '../../utils/ad_helper.dart';
 import '../../utils/utils.dart';
+import '../../utils/calculation_history.dart';
 import '../reusable/flex_form.dart';
 import '../reusable/sip_maturity.dart';
 
@@ -169,8 +170,38 @@ class _SwpScreenState extends State<SwpScreen> {
       }
     }
 
+    await _saveHistory(values);
+
     _scrollToBottom();
     await _maybeRequestReview();
+  }
+
+  Future<void> _saveHistory(List<double> values) async {
+    final Map<String, int> result;
+    if (_mode == _SwpMode.fixedPeriod) {
+      result = {
+        'remainingCorpus': _remainingCorpus,
+        'totalWithdrawn': _totalWithdrawn,
+        'initialCorpus': _initialCorpus,
+      };
+    } else {
+      result = {
+        'neverDepletes': _neverDepletes ? 1 : 0,
+        'years': _exYears,
+        'months': _exMonths,
+      };
+    }
+    await CalculationHistoryStore.instance.save(
+      calculatorType: 'swp',
+      inputs: {
+        'corpus': values[0],
+        'withdrawal': values[1],
+        'rate': values[2],
+        'years': values[3],
+      },
+      result: result,
+      locale: Utils.locale,
+    );
   }
 
   void _onReset() => setState(() => _isReady = false);

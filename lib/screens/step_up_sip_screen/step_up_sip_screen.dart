@@ -7,6 +7,7 @@ import 'package:in_app_review/in_app_review.dart';
 
 import '../../utils/ad_helper.dart';
 import '../../utils/utils.dart';
+import '../../utils/calculation_history.dart';
 import '../reusable/flex_form.dart';
 import '../reusable/sip_maturity.dart';
 
@@ -107,6 +108,22 @@ class _StepUpSipScreenState extends State<StepUpSipScreen> {
       _estimatedReturns = _maturityValue - _totalInvested;
       _isReady = true;
     });
+
+    await CalculationHistoryStore.instance.save(
+      calculatorType: 'stepUpSIP',
+      inputs: {
+        'principal': P,
+        'stepUp': values[1],
+        'rate': values[2],
+        'years': values[3],
+      },
+      result: {
+        'maturity': _maturityValue,
+        'invested': _totalInvested,
+        'returns': _estimatedReturns,
+      },
+      locale: Utils.locale,
+    );
 
     _scrollToBottom();
     await _maybeRequestReview();

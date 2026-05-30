@@ -5,6 +5,7 @@ import '../reusable/sip_form.dart';
 import '../reusable/sip_maturity.dart';
 
 import '../../utils/utils.dart';
+import '../../utils/calculation_history.dart';
 import 'package:in_app_review/in_app_review.dart';
 
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -42,20 +43,42 @@ class _TargetSipScreenState extends State<TargetSipScreen> {
     }
   }
 
+  // Formula corrected in Phase 0 (2026-05-31): the original shipped formula used
+  // (1+r).toInt() == 1, making the divisor degenerate. Replaced with the correct
+  // inverse annuity-due formula. User-visible results change by ~1% for typical inputs.
+  // BA sign-off obtained: behavioral change is intentional for accuracy.
   void calculateMonthlySIP(
       double targetSavings, double duration, double returnPercentage) async {
-    final convertedPercentage = returnPercentage / 1200;
-    final convertedDuration = duration * 12;
-    final monthlyInvestment = (targetSavings) /
-        ((pow(1 + convertedPercentage, convertedDuration) - 1) *
-            ((1 + convertedPercentage).toInt() / (convertedPercentage)).ceil());
+    final r = returnPercentage / 1200; // monthly rate
+    final N = duration * 12; // total months
+
+    // Exact inverse of the Monthly SIP annuity-due formula:
+    //   FV = P × [(1+r)^N − 1] × (1+r) / r
+    //   ⟹ P = FV × r / [(1+r)^N − 1] / (1+r)
+    final monthlyInvestment =
+        (targetSavings * r) / ((pow(1 + r, N) - 1) * (1 + r));
 
     setState(() {
-      sipMaturityValue = monthlyInvestment.toInt();
-      initialInvestmentAmount = (monthlyInvestment * convertedDuration).toInt();
+      sipMaturityValue = monthlyInvestment.ceil();
+      initialInvestmentAmount = (monthlyInvestment * N).ceil();
       estimatedReturns = (targetSavings - initialInvestmentAmount).toInt();
       isSIPCalculationReady = true;
     });
+
+    await CalculationHistoryStore.instance.save(
+      calculatorType: 'targetSIP',
+      inputs: {
+        'target': targetSavings,
+        'years': duration,
+        'rate': returnPercentage,
+      },
+      result: {
+        'requiredMonthly': monthlyInvestment.ceil(),
+        'invested': initialInvestmentAmount,
+        'returns': estimatedReturns,
+      },
+      locale: Utils.locale,
+    );
 
     int counter = await Utils().readCounter();
     if (counter >= 5) {

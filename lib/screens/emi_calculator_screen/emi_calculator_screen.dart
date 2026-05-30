@@ -5,6 +5,7 @@ import '../reusable/sip_form.dart';
 import '../reusable/sip_maturity.dart';
 
 import '../../utils/utils.dart';
+import '../../utils/calculation_history.dart';
 import 'package:in_app_review/in_app_review.dart';
 
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -57,6 +58,21 @@ class _EMICalculatorScreenState extends State<EMICalculatorScreen> {
       interestPaid = (totalAmount - loanAmount).toInt();
       isSIPCalculationReady = true;
     });
+
+    await CalculationHistoryStore.instance.save(
+      calculatorType: 'emi',
+      inputs: {
+        'principal': loanAmount,
+        'years': duration,
+        'rate': returnPercentage,
+      },
+      result: {
+        'emi': monthlyEMI.toInt(),
+        'totalPayable': totalAmount,
+        'interest': interestPaid,
+      },
+      locale: Utils.locale,
+    );
 
     int counter = await Utils().readCounter();
     if (counter >= 5) {

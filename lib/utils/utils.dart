@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:intl/intl.dart';
@@ -11,6 +12,11 @@ class Utils {
   final availableLocales = ["en-IN", "en-US", "nl-NL"];
 
   static String locale = "en-IN";
+
+  /// Native channel used to mirror the selected locale into the iOS App-Group
+  /// suite so App Intents / widgets format in the app's locale.
+  static const MethodChannel _localeChannel =
+      MethodChannel('com.ishanmalviya.sipcalculator/locale');
 
   factory Utils() {
     return _singleton;
@@ -29,6 +35,18 @@ class Utils {
     final SharedPreferences prefs = await _prefs;
     prefs.setString('locale', locale);
     Utils.locale = locale;
+
+    // Mirror to the iOS App-Group suite for native surfaces. The channel only
+    // exists on iOS; ignore failures on other platforms / before engine setup.
+    if (Platform.isIOS) {
+      try {
+        await _localeChannel.invokeMethod('setLocale', locale);
+      } on PlatformException {
+        // Best-effort: a missing native handler must not block locale changes.
+      } on MissingPluginException {
+        // No native handler registered (e.g. older build) — ignore.
+      }
+    }
   }
 
   Future<void> incrementCounter() async {

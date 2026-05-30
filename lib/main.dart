@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sip_calculator/screens/splash_screen/splash_screen.dart';
+import 'package:sip_calculator/utils/utils.dart';
 
 // Brand colours — single source of truth used across the app
 const kPrimary = Color(0xFF1565C0); // Blue 800 — deep, modern
@@ -12,6 +15,16 @@ const kTextSecondary = Color(0xFF546E7A);
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+
+  if (Platform.isIOS) {
+    Utils().getDefaultLocale().then((locale) {
+      Utils.locale = locale;
+      // Push to native App-Group on launch so intents/widgets pick it up
+      // immediately, even before the user opens Settings to change locale.
+      Utils().setDefaultLocale(locale);
+    });
+  }
+
   runApp(const MainApp());
 }
 

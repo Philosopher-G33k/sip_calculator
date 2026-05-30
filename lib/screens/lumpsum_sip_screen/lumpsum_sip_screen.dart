@@ -5,6 +5,7 @@ import '../reusable/sip_form.dart';
 import '../reusable/sip_maturity.dart';
 
 import '../../utils/utils.dart';
+import '../../utils/calculation_history.dart';
 import 'package:in_app_review/in_app_review.dart';
 
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -55,6 +56,21 @@ class _LumpsumSipScreenState extends State<LumpsumSipScreen> {
       estimatedReturns = this.sipMaturityValue - initialInvestmentAmount;
       isSIPCalculationReady = true;
     });
+
+    await CalculationHistoryStore.instance.save(
+      calculatorType: 'lumpsumSIP',
+      inputs: {
+        'principal': lumpsumInvestment,
+        'years': duration,
+        'rate': returnPercentage,
+      },
+      result: {
+        'maturity': sipMaturityValue.ceil(),
+        'invested': initialInvestmentAmount,
+        'returns': estimatedReturns,
+      },
+      locale: Utils.locale,
+    );
 
     int counter = await Utils().readCounter();
     if (counter >= 5) {

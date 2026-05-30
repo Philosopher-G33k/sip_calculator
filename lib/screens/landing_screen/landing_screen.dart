@@ -93,13 +93,11 @@ class _LandingScreenState extends State<LandingScreen> {
                   ),
                   _CalcCard(
                     assetName: 'step_up_sip.png',
-                    fallbackIcon: Icons.trending_up_rounded,
                     title: 'Step-Up SIP',
                     onTap: () => _navigate(const StepUpSipScreen()),
                   ),
                   _CalcCard(
                     assetName: 'swp_calculator.png',
-                    fallbackIcon: Icons.savings_outlined,
                     title: 'SWP',
                     onTap: () => _navigate(const SwpScreen()),
                   ),
@@ -124,14 +122,10 @@ class _CalcCard extends StatelessWidget {
   final String assetName;
   final VoidCallback onTap;
 
-  /// Shown when [assetName] PNG has not been added to assets yet.
-  final IconData? fallbackIcon;
-
   const _CalcCard({
     required this.title,
     required this.assetName,
     required this.onTap,
-    this.fallbackIcon,
   });
 
   @override
@@ -161,11 +155,6 @@ class _CalcCard extends StatelessWidget {
                 child: Image.asset(
                   'assets/icons/$assetName',
                   fit: BoxFit.contain,
-                  errorBuilder: (_, __, ___) => Icon(
-                    fallbackIcon ?? Icons.calculate_outlined,
-                    size: 64,
-                    color: Colors.black87,
-                  ),
                 ),
               ),
             ),
